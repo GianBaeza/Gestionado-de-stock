@@ -1,4 +1,4 @@
-import StockInventario from "./assets/Components/StockInventario";
+import StockInventario from "./assets/Components/StockInventario/StockInventario";
 
 function App() {
   return (
