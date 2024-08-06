@@ -1,11 +1,14 @@
 .ButtonOrden {
   cursor: pointer;
 }
-
-.table-container {
-  width: 80%;
+.button-container {
+  display: flex;
+  gap: 5px;
+  justify-content: end;
 }
-
 .acciones {
   background-color: rgba(0, 255, 255, 0);
+  border: none;
+  padding: 5px;
+  color: rgb(89, 90, 92);
 }

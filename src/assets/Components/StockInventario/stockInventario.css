@@ -22,18 +22,18 @@
   justify-content: right;
   align-items: center;
   gap: 10px;
-  background-color: #fed6e3;
+  background-color: #fed6e300;
 }
 
 button {
   padding: 5px;
-  border: 1px solid black;
   cursor: pointer;
   font-size: 15px;
 }
+
 .input-container {
   padding: 5px;
-  background-color: aquamarine;
+  background-color: rgba(127, 255, 212, 0);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -41,10 +41,15 @@ button {
 }
 .input-container input {
   padding: 5px;
+  padding-left: 25px;
+}
+.input-container input::placeholder {
+  color: #0000004b;
 }
 .search-icon {
   position: relative;
-  right: 25px;
+  left: 25px;
+  color: #0000004b;
 }
 .container-table {
   width: 100%;
