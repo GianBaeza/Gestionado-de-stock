@@ -1,0 +1,11 @@
+.ButtonOrden {
+  cursor: pointer;
+}
+
+.table-container {
+  width: 80%;
+}
+
+.acciones {
+  background-color: rgba(0, 255, 255, 0);
+}

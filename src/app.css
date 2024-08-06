@@ -1,0 +1,14 @@
+@font-face {
+  font-family: myFont;
+  src: url(./assets//Fonts/janda_manatee/JandaManateeSolid.ttf);
+}
+
+h1,
+h2,
+h3,
+p,
+button,
+::placeholder {
+  font-family: myFont;
+  font-weight: 100;
+}
