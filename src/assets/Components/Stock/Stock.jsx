@@ -96,7 +96,11 @@ export default function Stock({ inventario, handleDelete }) {
               </TableRow>
             ))
           ) : (
-            <span>Inventario vacio</span>
+            <TableRow>
+              <TableCell colSpan={6} align="center">
+                Inventario vacío
+              </TableCell>
+            </TableRow>
           )}
         </TableBody>
       </Table>
