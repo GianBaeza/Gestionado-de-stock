@@ -17,6 +17,7 @@ const Inventario = [
   },
   { nombre: "Rabbit Food", stock: 80, codigo: 2005, lista: 25.0, venta: 20.0 },
 ];
+
 export default function StockInventario() {
   const [inventario, setInventario] = useState(Inventario);
   const filterProduct = useFilterProducts();
@@ -28,19 +29,25 @@ export default function StockInventario() {
 
   const handleChange = (e) => {
     const { value } = e.target;
+    let result;
+    const isNumber = !isNaN(Number(value)) && value.trim() !== "";
 
-    if (value === " ") {
-      setInventario(Inventario);
+    if (value.trim() === "") {
+      result = inventario;
+    }
+    if (isNumber) {
+      result = filterProduct(Inventario, "codigo", value);
     } else {
       const itemSetch = filterProduct(Inventario, "nombre", value);
-      setInventario(itemSetch);
+      result = itemSetch;
     }
+    setInventario(result);
   };
 
   return (
     <div className="container-Stock">
       <header className="main-Stock">
-        <h1>Inventario:{` ${Inventario.length} Productos`}</h1>
+        <h1>Inventario: {`${Inventario.length} Productos`}</h1>
 
         <section>
           <button>Nuevo Articulo</button>

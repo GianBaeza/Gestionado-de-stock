@@ -15,7 +15,6 @@ const estiloHead = { fontSize: 20 };
 const esiloinfo = { fontSize: 15 };
 
 export default function Stock({ inventario, handleDelete }) {
-
   return (
     <TableContainer
       component={Paper}
