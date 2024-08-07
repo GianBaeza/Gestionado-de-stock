@@ -3,7 +3,7 @@ export default function useFilterProducts() {
     const queryToLowerCase = query.toLowerCase();
 
     const result = objeto.filter((item) => {
-        //convierto el valor en una cadena 
+      //convierto el valor en una cadena
       const itemString = item[prop].toString().toLowerCase();
       return itemString.includes(queryToLowerCase);
     });
