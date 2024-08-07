@@ -6,7 +6,6 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import "./stock.css";
-
 import ImportExportIcon from "@mui/icons-material/ImportExport";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
@@ -16,6 +15,7 @@ const estiloHead = { fontSize: 20 };
 const esiloinfo = { fontSize: 15 };
 
 export default function Stock({ inventario, handleDelete }) {
+
   return (
     <TableContainer
       component={Paper}

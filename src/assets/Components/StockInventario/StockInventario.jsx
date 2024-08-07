@@ -1,3 +1,4 @@
+import useFilterProducts from "../../Hooks/useFilterProducts";
 import Stock from "../Stock/Stock";
 import "../StockInventario/stockInventario.css";
 import SearchIcon from "@mui/icons-material/Search";
@@ -18,21 +19,32 @@ const Inventario = [
 ];
 export default function StockInventario() {
   const [inventario, setInventario] = useState(Inventario);
+  const filterProduct = useFilterProducts();
 
   const handleDelete = (name) => {
     const itemDelete = inventario.filter((item) => item.nombre !== name);
-
     setInventario(itemDelete);
+  };
+
+  const handleChange = (e) => {
+    const { value } = e.target;
+
+    if (value === " ") {
+      setInventario(Inventario);
+    } else {
+      const itemSetch = filterProduct(Inventario, "nombre", value);
+      setInventario(itemSetch);
+    }
   };
 
   return (
     <div className="container-Stock">
       <header className="main-Stock">
-        <h1>Inventario: 29 Productos</h1>
+        <h1>Inventario:{` ${Inventario.length} Productos`}</h1>
 
         <section>
           <button>Nuevo Articulo</button>
-          <form action="/search" method="get">
+          <div>
             <div className="input-container">
               <SearchIcon className="search-icon" />
               <input
@@ -40,9 +52,10 @@ export default function StockInventario() {
                 name="search"
                 id="buscarItem"
                 placeholder="Buscar Articulo.."
+                onChange={handleChange}
               />
             </div>
-          </form>
+          </div>
         </section>
       </header>
       <section className="container-table">
