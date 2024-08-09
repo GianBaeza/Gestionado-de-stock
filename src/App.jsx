@@ -1,10 +1,10 @@
-import StockInventario from "./assets/Components/StockInventario/StockInventario";
 import "../src/app.css";
+import StockInventario from "./Components/StockInventario/StockInventario";
 function App() {
   return (
     <>
       {" "}
-      <StockInventario />
+      <StockInventario/>
     </>
   );
 }

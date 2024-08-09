@@ -1,8 +1,9 @@
-import useFilterProducts from "../../Hooks/useFilterProducts";
+import useFilterProducts from "../Hooks/useFilterProducts";
 import Stock from "../Stock/Stock";
-import "../StockInventario/stockInventario.css";
+import "./stockInventario.css";
 import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
+import useOrdenProducts from "../Hooks/useOrdenProducts";
 
 const Inventario = [
   { nombre: "Dog Food", stock: 100, codigo: 2001, lista: 50.0, venta: 45.0 },
@@ -20,7 +21,10 @@ const Inventario = [
 
 export default function StockInventario() {
   const [inventario, setInventario] = useState(Inventario);
+  const [sortStock, setSortStock] = useState(false);
+  const [sortNombre, setSortNombre] = useState(false);
   const filterProduct = useFilterProducts();
+  const ordenProducts = useOrdenProducts();
 
   const handleDelete = (name) => {
     const itemDelete = inventario.filter((item) => item.nombre !== name);
@@ -32,18 +36,34 @@ export default function StockInventario() {
     let result;
     const isNumber = !isNaN(Number(value)) && value.trim() !== "";
 
-    if (value.trim() === "") {
+    if (value.trim() === "" || value.length <= 0) {
       result = inventario;
     }
+    //fil;tramos por codigo
     if (isNumber) {
       result = filterProduct(Inventario, "codigo", value);
     } else {
+      //fil;tramos por nombre
       const itemSetch = filterProduct(Inventario, "nombre", value);
       result = itemSetch;
     }
     setInventario(result);
   };
 
+  const handleOrdenClick = () => {
+    //ordenamos por stock
+    setSortStock(!sortStock);
+    const ordenStock = ordenProducts(inventario, "stock", sortStock);
+
+    setInventario(ordenStock);
+  };
+
+  const handleOrdenNombreClick = () => {
+    //ordenamos por nombre
+    setSortNombre(!sortNombre);
+    const ordenNombre = ordenProducts(inventario, "nombre", sortNombre);
+    setInventario(ordenNombre);
+  };
   return (
     <div className="container-Stock">
       <header className="main-Stock">
@@ -66,7 +86,12 @@ export default function StockInventario() {
         </section>
       </header>
       <section className="container-table">
-        <Stock handleDelete={handleDelete} inventario={inventario} />
+        <Stock
+          handleDelete={handleDelete}
+          inventario={inventario}
+          handleOrdenClick={handleOrdenClick}
+          handleOrdenNombreClick={handleOrdenNombreClick}
+        />
       </section>
     </div>
   );

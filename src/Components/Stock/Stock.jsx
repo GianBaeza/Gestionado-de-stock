@@ -14,7 +14,12 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 const estiloHead = { fontSize: 20 };
 const esiloinfo = { fontSize: 15 };
 
-export default function Stock({ inventario, handleDelete }) {
+export default function Stock({
+  inventario,
+  handleDelete,
+  handleOrdenClick,
+  handleOrdenNombreClick,
+}) {
   return (
     <TableContainer
       component={Paper}
@@ -37,6 +42,7 @@ export default function Stock({ inventario, handleDelete }) {
                   height: 20,
                   margin: "auto",
                 }}
+                onClick={handleOrdenNombreClick}
               />
             </TableCell>
             <TableCell align="right" sx={estiloHead}>
@@ -44,6 +50,7 @@ export default function Stock({ inventario, handleDelete }) {
               <ImportExportIcon
                 className="ButtonOrden"
                 sx={{ width: 20, height: 20, margin: "auto" }}
+                onClick={handleOrdenClick}
               />
             </TableCell>
             <TableCell align="right" sx={estiloHead}>
@@ -98,7 +105,7 @@ export default function Stock({ inventario, handleDelete }) {
           ) : (
             <TableRow>
               <TableCell colSpan={6} align="center">
-                Inventario vacío
+                Producto no existe
               </TableCell>
             </TableRow>
           )}
