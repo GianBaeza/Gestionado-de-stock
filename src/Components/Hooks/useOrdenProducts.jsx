@@ -1,6 +1,8 @@
 export default function useOrdenProducts() {
   const ordenProducts = (objt, prop, state) => {
     const objtClone = [...objt];
+
+    // orden por stock
     if (typeof objtClone[0][prop] === "number") {
       objtClone.sort((a, b) => {
         return state ? a[prop] - b[prop] : b[prop] - a[prop];

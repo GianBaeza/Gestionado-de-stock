@@ -4,6 +4,7 @@ import "./stockInventario.css";
 import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
 import useOrdenProducts from "../Hooks/useOrdenProducts";
+import AgregarProducto from "../AgregarProducto/AgregarProducto";
 
 const Inventario = [
   { nombre: "Dog Food", stock: 100, codigo: 2001, lista: 50.0, venta: 45.0 },
@@ -23,6 +24,7 @@ export default function StockInventario() {
   const [inventario, setInventario] = useState(Inventario);
   const [sortStock, setSortStock] = useState(false);
   const [sortNombre, setSortNombre] = useState(false);
+  const [openModalAdd, setOpenModalAdd] = useState(false);
   const filterProduct = useFilterProducts();
   const ordenProducts = useOrdenProducts();
 
@@ -64,13 +66,23 @@ export default function StockInventario() {
     const ordenNombre = ordenProducts(inventario, "nombre", sortNombre);
     setInventario(ordenNombre);
   };
+
+  //open modal para agregar producto
+  const handleOpenModal = () => {
+    setOpenModalAdd(!openModalAdd);
+  };
+  //close modal
+  const handleCloseModal = () => {
+    setOpenModalAdd(false);
+  };
   return (
     <div className="container-Stock">
       <header className="main-Stock">
         <h1>Inventario: {`${Inventario.length} Productos`}</h1>
 
         <section>
-          <button>Nuevo Articulo</button>
+          <button onClick={handleOpenModal}>Nuevo Articulo</button>
+          {openModalAdd && <AgregarProducto closeModal={handleCloseModal} />}
           <div>
             <div className="input-container">
               <SearchIcon className="search-icon" />
@@ -85,7 +97,7 @@ export default function StockInventario() {
           </div>
         </section>
       </header>
-      <section className="container-table">
+      <section className="container-table ">
         <Stock
           handleDelete={handleDelete}
           inventario={inventario}

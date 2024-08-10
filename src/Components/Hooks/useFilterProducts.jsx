@@ -1,6 +1,5 @@
 export default function useFilterProducts() {
   const filterProduct = (objeto, prop, query) => {
-      
     const queryToLowerCase = query.toLowerCase();
 
     const result = objeto.filter((item) => {

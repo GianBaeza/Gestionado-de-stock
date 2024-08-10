@@ -1,0 +1,50 @@
+.container-form {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.form {
+  background-color: #00000062;
+  display: flex;
+  width: 100%;
+  height: 100vh;
+}
+
+.form form {
+  background-color: azure;
+  margin: auto;
+  display: flex;
+  width: 400px;
+  height: 400px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  border-radius: 20px;
+}
+.form h2 {
+  font-size: 25px;
+  padding: 5px;
+}
+.form label {
+  background-color: rgba(11, 15, 15, 0);
+  color: rgb(0, 0, 0);
+}
+
+.form input {
+  padding: 5px;
+}
+.btn-agregar {
+  background-color: rgba(250, 235, 215, 0);
+  width: 100px;
+  cursor: pointer;
+  margin-top: 5px;
+}
