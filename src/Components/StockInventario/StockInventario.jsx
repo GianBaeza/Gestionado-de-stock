@@ -12,6 +12,7 @@ export default function StockInventario() {
     handleChange,
     handleOrdenClick,
     handleOrdenNombreClick,
+    valueSearch,
     inventario,
   } = useContext(InventarioContext);
 
@@ -40,6 +41,7 @@ export default function StockInventario() {
                 id="buscarItem"
                 placeholder="Buscar Articulo.."
                 onChange={handleChange}
+                value={valueSearch}
               />
             </div>
           </div>

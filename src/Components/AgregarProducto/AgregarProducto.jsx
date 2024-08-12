@@ -16,7 +16,7 @@ export default function AgregarProducto({ closeModal }) {
         stock: Number(data.stock),
         codigo: data.codigo,
         lista: parseFloat(data.lista), // Asegúrate de convertir a número
-        venta: parseFloat,
+        venta: parseFloat(data.venta),
       };
       addNuevoProducto(nuevoProducto);
       closeModal();

@@ -9,7 +9,7 @@ import "./stock.css";
 import ImportExportIcon from "@mui/icons-material/ImportExport";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import { useId } from "react";
+
 
 //Estilos del  inventario
 const estiloHead = { fontSize: 20 };
