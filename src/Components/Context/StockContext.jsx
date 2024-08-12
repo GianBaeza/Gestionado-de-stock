@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import EliminarAlert from "../EliminarAlert/EliminarAlert";
 import useFilterProducts from "../Hooks/useFilterProducts";
 import useOrdenProducts from "../Hooks/useOrdenProducts";
@@ -6,12 +6,21 @@ import useOrdenProducts from "../Hooks/useOrdenProducts";
 export const InventarioContext = createContext();
 
 export default function InventarioProvider({ children }) {
-  const [inventario, setInventario] = useState([]);
+  const [inventario, setInventario] = useState(() => {
+    const getInventario = localStorage.getItem("inventario");
+    return getInventario ? JSON.parse(getInventario) : [];
+  });
   const [sortStock, setSortStock] = useState(false);
   const [sortNombre, setSortNombre] = useState(false);
   const [valueSearch, setValueSearch] = useState("");
   const filterProduct = useFilterProducts();
   const ordenProducts = useOrdenProducts();
+
+ 
+  // Guardar inventario en localStorage cuando cambie
+  useEffect(() => {
+    localStorage.setItem("inventario", JSON.stringify(inventario));
+  }, [inventario]);
 
   //Eliminar El Producto
   const handleDelete = (name) => {
@@ -27,6 +36,7 @@ export default function InventarioProvider({ children }) {
   const handleChange = (e) => {
     const { value } = e.target;
     setValueSearch(value);
+    
     let result;
     const isNumber = !isNaN(Number(valueSearch)) && valueSearch.trim() !== "";
 

@@ -18,6 +18,7 @@ export default function AgregarProducto({ closeModal }) {
         lista: parseFloat(data.lista), // Asegúrate de convertir a número
         venta: parseFloat(data.venta),
       };
+
       addNuevoProducto(nuevoProducto);
       closeModal();
     }
