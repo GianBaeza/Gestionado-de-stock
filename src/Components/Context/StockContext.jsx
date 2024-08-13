@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useMemo, useState } from "react";
 import EliminarAlert from "../EliminarAlert/EliminarAlert";
 import useFilterProducts from "../Hooks/useFilterProducts";
 import useOrdenProducts from "../Hooks/useOrdenProducts";
@@ -8,20 +8,31 @@ export const InventarioContext = createContext();
 export default function InventarioProvider({ children }) {
   const [inventario, setInventario] = useState(() => {
     const getInventario = localStorage.getItem("inventario");
+   try {
     return getInventario ? JSON.parse(getInventario) : [];
+  } catch (e) {
+    return [];
+  }
   });
   const [sortStock, setSortStock] = useState(false);
   const [sortNombre, setSortNombre] = useState(false);
   const [valueSearch, setValueSearch] = useState("");
   const filterProduct = useFilterProducts();
   const ordenProducts = useOrdenProducts();
+   
+    
 
- 
+
+  
   // Guardar inventario en localStorage cuando cambie
   useEffect(() => {
-    localStorage.setItem("inventario", JSON.stringify(inventario));
-  }, [inventario]);
 
+     if(inventario !== undefined){
+      localStorage.setItem("inventario", JSON.stringify(inventario));
+     }
+     
+  }, [inventario]);
+  
   //Eliminar El Producto
   const handleDelete = (name) => {
     EliminarAlert({
@@ -34,14 +45,14 @@ export default function InventarioProvider({ children }) {
 
   //valor del inputSearch
   const handleChange = (e) => {
-    const { value } = e.target;
-    setValueSearch(value);
+    const query = e.target.value;
+    setValueSearch(query);
     
     let result;
     const isNumber = !isNaN(Number(valueSearch)) && valueSearch.trim() !== "";
 
-    if (valueSearch.trim() === "" || valueSearch.length <= 0) {
-      result = inventario;
+    if (query.trim() === " ") {
+      setInventario(inventario)
     }
     //fil;tramos por codigo
     if (isNumber) {
@@ -55,24 +66,33 @@ export default function InventarioProvider({ children }) {
   };
 
   //Ordenamos por stock
-  const handleOrdenClick = () => {
+  const handleOrdenClick =  () => {
     setSortStock(!sortStock);
     const ordenStock = ordenProducts(inventario, "stock", sortStock);
-
     setInventario(ordenStock);
-  };
+  }
+
   //Ordenamos por nombre
   const handleOrdenNombreClick = () => {
     setSortNombre(!sortNombre);
     const ordenNombre = ordenProducts(inventario, "nombre", sortNombre);
     setInventario(ordenNombre);
-  };
+  }
 
   //addProducto
   const addNuevoProducto = (nuevoProducts) => {
     setInventario((prev) => [...prev, nuevoProducts]);
+    
   };
-
+  
+   const editar = ()=>{
+     inventario.map((item) =>{
+        const [propidad,value] = Object.entries(item)
+    
+     })
+    
+   }
+   editar()
   return (
     <InventarioContext.Provider
       value={{

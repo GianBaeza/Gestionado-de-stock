@@ -22,7 +22,8 @@ export default function AgregarProducto({ closeModal }) {
       addNuevoProducto(nuevoProducto);
       closeModal();
     }
-  };
+  }; 
+
 
   return (
     <div className="container-form">

@@ -14,6 +14,7 @@ export default function StockInventario() {
     handleOrdenNombreClick,
     valueSearch,
     inventario,
+    
   } = useContext(InventarioContext);
 
   //open modal para agregar producto
@@ -42,6 +43,7 @@ export default function StockInventario() {
                 placeholder="Buscar Articulo.."
                 onChange={handleChange}
                 value={valueSearch}
+                
               />
             </div>
           </div>
