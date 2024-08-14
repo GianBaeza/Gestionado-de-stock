@@ -1,28 +1,30 @@
 import { useForm } from "react-hook-form";
 import "../AgregarProducto/agregarProducto.css";
 import CloseIcon from "@mui/icons-material/Close";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { InventarioContext } from "../Context/StockContext";
 
+
 export default function AgregarProducto({ closeModal }) {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit,formState: { errors }} = useForm();
+  
   const { addNuevoProducto } = useContext(InventarioContext);
 
   const AddForm = (data) => {
-    if (data) {
-      const nuevoProducto = {
-        id: Date.now(), // Genera un ID único basado en el tiempo actual
-        nombre: data.nombre,
-        stock: Number(data.stock),
-        codigo: data.codigo,
-        lista: parseFloat(data.lista), // Asegúrate de convertir a número
-        venta: parseFloat(data.venta),
-      };
-
-      addNuevoProducto(nuevoProducto);
-      closeModal();
+     const nuevoProducto = {
+            id: Date.now(), // Genera un ID único basado en el tiempo actual
+            nombre: data.nombre,
+            stock: Number(data.stock),
+            codigo: data.codigo,
+            lista: parseFloat(data.lista), // Asegúrate de convertir a número
+            venta: parseFloat(data.venta),
+          }
+            addNuevoProducto(nuevoProducto);
+            closeModal();
+        
     }
-  }; 
+     
+
 
 
   return (
@@ -36,10 +38,12 @@ export default function AgregarProducto({ closeModal }) {
           <label htmlFor="nombre">Nombre</label>
           <input
             type="text"
-            {...register("nombre")}
+            {...register("nombre",{ required: true })}
             placeholder="producto..."
+            
           />
-          <label htmlFor="stock">Stock</label>
+          {errors.nombre &&  <span className={errors.nombre ? "errorOn" : null}>Ingrese un nombre valido</span>}
+          <label htmlFor="stock"></label>
           <input type="number" {...register("stock")} placeholder="stock..." />
 
           <label htmlFor="codigo">Codigo</label>

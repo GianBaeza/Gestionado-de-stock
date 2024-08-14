@@ -74,3 +74,8 @@
 .input-price {
   width: 60px;
 }
+.errorOn {
+  color: rgba(255, 0, 0, 0.384);
+  position: relative;
+  bottom: 10px;
+}
