@@ -44,32 +44,36 @@ export default function AgregarProducto({ closeModal }) {
           />
           {errors.nombre &&  <span className={errors.nombre ? "errorOn" : null}>Ingrese un nombre valido</span>}
           <label htmlFor="stock"></label>
-          <input type="number" {...register("stock")} placeholder="stock..." />
+          <input type="number" {...register("stock",{ required: true })} placeholder="stock..." />
+          {errors.stock &&  <span className={errors.stock ? "errorOn" : null}>Ingrese un stock valido</span>}
 
           <label htmlFor="codigo">Codigo</label>
-          <input type="text" {...register("codigo")} placeholder="codigo..." />
-
+          <input type="text" {...register("codigo",{ required: true })} placeholder="codigo..." />
+          {errors.codigo &&  <span className={errors.codigo ? "errorOn" : null}>Ingrese un codigo valido</span>}
           <div className="contianer-price">
             <label htmlFor="lista" className="label-price">
               Lista
               <input
                 type="number"
-                {...register("lista")}
+                {...register("lista",{ required: true })}
                 placeholder="$"
                 className="input-price"
               />
+             
             </label>
 
             <label htmlFor="venta" className="label-price">
               Venta
               <input
                 type="number"
-                {...register("venta")}
+                {...register("venta",{ required: true })}
                 placeholder="$"
                 className="input-price"
               />
             </label>
+            
           </div>
+          {errors.venta && errors.venta &&  <span className={errors.venta ? "errorOn" : null}>Ingrese un precio</span>}
           <input type="submit" value="Agregar" className="btn-agregar" />
         </form>
       </div>
