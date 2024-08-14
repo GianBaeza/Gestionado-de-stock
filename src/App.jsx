@@ -6,7 +6,10 @@ function App() {
     <>
       {" "}
       <InventarioProvider>
+        
+        <main>
         <StockInventario />
+        </main>
       </InventarioProvider>
     </>
   );

@@ -2,22 +2,39 @@ import { createContext, useEffect, useState } from "react";
 import EliminarAlert from "../EliminarAlert/EliminarAlert";
 import useFilterProducts from "../Hooks/useFilterProducts";
 import useOrdenProducts from "../Hooks/useOrdenProducts";
+import { collection, getDocs} from "firebase/firestore";
+import db from "../../firebase/config";
 
 
 export const InventarioContext = createContext();
 
- const  stockInicial = JSON.parse(localStorage.getItem('stock')|| [])
+
      
   
 export default function InventarioProvider({ children }) {
-  const [inventario, setInventario] = useState(stockInicial)
+  const [inventario, setInventario] = useState([])
   const [sortStock, setSortStock] = useState(false);
   const [sortNombre, setSortNombre] = useState(false);
   const [valueSearch, setValueSearch] = useState("");
   const filterProduct = useFilterProducts();
   const ordenProducts = useOrdenProducts();
    
+
+
+  useEffect(()=>{
+     const inventarioRef = collection(db, 'Stock');
+      getDocs(inventarioRef)
+      .then((resp)=>{
+        const data = (resp.docs.map((item)=>{
+            return { ...item.data() , id: item.id}
+          }))
+          setInventario(data)
+      })
+     
+  },[])
   
+ 
+
   //Eliminar El Producto
   const handleDelete = (name) => {
     EliminarAlert({
@@ -34,14 +51,13 @@ export default function InventarioProvider({ children }) {
   const handleChange = (e) => {
     const query = e.target.value;
     setValueSearch(query);
- 
     const isNumber = !isNaN(Number(query));
-    
-       if(query.length > 0){
-        const filtrarInventario  = isNumber  ?  filterProduct(stockInicial, "codigo", query) : filterProduct(stockInicial, "nombre", query)
+        const cloneInventario = [...inventario]
+       if(query.length > 1){
+        const filtrarInventario  = isNumber  ?  filterProduct(cloneInventario, "codigo", query) : filterProduct(cloneInventario, "nombre", query)
         setInventario(filtrarInventario)
        }else{
-        setInventario(stockInicial)
+        setInventario(cloneInventario)
        }
  
      
@@ -76,7 +92,7 @@ export default function InventarioProvider({ children }) {
         stock : data.stock || item.stock,
         codigo : data.codigo || item.codigo,
         lista:  data.lista  || item.lista,
-        venta : data.venta || item.venta
+        venta : data.venta || item.venta,
 
     } : item)
       setInventario(newEditItem)
@@ -84,10 +100,6 @@ export default function InventarioProvider({ children }) {
    })
       
 
-     useEffect(()=>{
-        localStorage.setItem('stock',JSON.stringify(inventario))
-     ,[inventario]})
-    
    
    
 
