@@ -3,35 +3,20 @@ import EliminarAlert from "../EliminarAlert/EliminarAlert";
 import useFilterProducts from "../Hooks/useFilterProducts";
 import useOrdenProducts from "../Hooks/useOrdenProducts";
 
+
 export const InventarioContext = createContext();
 
+ const  stockInicial = JSON.parse(localStorage.getItem('stock')|| [])
+     
+  
 export default function InventarioProvider({ children }) {
-  const [inventario, setInventario] = useState(() => {
-    const getInventario = localStorage.getItem("inventario");
-   try {
-    return getInventario ? JSON.parse(getInventario) : [];
-  } catch (e) {
-    return [];
-  }
-  });
+  const [inventario, setInventario] = useState(stockInicial)
   const [sortStock, setSortStock] = useState(false);
   const [sortNombre, setSortNombre] = useState(false);
   const [valueSearch, setValueSearch] = useState("");
   const filterProduct = useFilterProducts();
   const ordenProducts = useOrdenProducts();
    
-    
-   
-
-  
-  // Guardar inventario en localStorage cuando cambie
-  useEffect(() => {
-
-     if(inventario !== undefined){
-      localStorage.setItem("inventario", JSON.stringify(inventario));
-     }
-     
-  }, [inventario]);
   
   //Eliminar El Producto
   const handleDelete = (name) => {
@@ -41,28 +26,26 @@ export default function InventarioProvider({ children }) {
         setInventario(itemDelete);
       },
     });
-  };
+  }; 
+
+  
 
   //valor del inputSearch
   const handleChange = (e) => {
     const query = e.target.value;
     setValueSearch(query);
+ 
+    const isNumber = !isNaN(Number(query));
     
-    let result;
-    const isNumber = !isNaN(Number(valueSearch)) && valueSearch.trim() !== "";
-
-    if (query.trim() === " ") {
-      setInventario(inventario)
-    }
-    //fil;tramos por codigo
-    if (isNumber) {
-      result = filterProduct(inventario, "codigo", valueSearch);
-    } else {
-      //fil;tramos por nombre
-      const itemSetch = filterProduct(inventario, "nombre", valueSearch);
-      result = itemSetch;
-    }
-    setInventario(result);
+       if(query.length > 0){
+        const filtrarInventario  = isNumber  ?  filterProduct(stockInicial, "codigo", query) : filterProduct(stockInicial, "nombre", query)
+        setInventario(filtrarInventario)
+       }else{
+        setInventario(stockInicial)
+       }
+ 
+     
+    
   };
 
   //Ordenamos por stock
@@ -101,7 +84,9 @@ export default function InventarioProvider({ children }) {
    })
       
 
-     
+     useEffect(()=>{
+        localStorage.setItem('stock',JSON.stringify(inventario))
+     ,[inventario]})
     
    
    

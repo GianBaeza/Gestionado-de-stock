@@ -37,7 +37,7 @@ export default function StockInventario() {
     setOpenModalEdit(false)
   }
  
-  console.log(editId)
+  
   return (
     <div className="container-Stock">
       <header className="main-Stock">

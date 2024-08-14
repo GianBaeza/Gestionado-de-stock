@@ -29,7 +29,7 @@ export default function AgregarProducto({ closeModal }) {
     <div className="container-form">
       <div className="form">
         <form action="post" onSubmit={handleSubmit(AddForm)}>
-          <button onClick={closeModal} className="close-Modal">
+          <button onClick={closeModal} className="close-ModalAgregar">
             <CloseIcon />
           </button>
           <h2>Agregar nuevo producto</h2>
@@ -44,6 +44,7 @@ export default function AgregarProducto({ closeModal }) {
 
           <label htmlFor="codigo">Codigo</label>
           <input type="text" {...register("codigo")} placeholder="codigo..." />
+
           <div className="contianer-price">
             <label htmlFor="lista" className="label-price">
               Lista
@@ -51,7 +52,7 @@ export default function AgregarProducto({ closeModal }) {
                 type="number"
                 {...register("lista")}
                 placeholder="$"
-                className="price"
+                className="input-price"
               />
             </label>
 
@@ -61,7 +62,7 @@ export default function AgregarProducto({ closeModal }) {
                 type="number"
                 {...register("venta")}
                 placeholder="$"
-                className="price"
+                className="input-price"
               />
             </label>
           </div>

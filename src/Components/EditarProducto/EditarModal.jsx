@@ -44,13 +44,14 @@ export default function EditarModal({handleCloseedit,itemId}) {
             type="number"
             {...register("lista")}
             placeholder="$"
-            className="price"
+            className="price-editar"
           />
           <input
             type="number"
             {...register("venta")}
             placeholder="$"
-            className="price"
+            className="price-editar"
+           
           />
       
       </div>
