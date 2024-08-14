@@ -20,13 +20,20 @@ export default function Stock({
   handleDelete,
   handleOrdenClick,
   handleOrdenNombreClick,
+  handleOpenEdit
+ 
 }) {
+    
+
+
+  
+
   return (
     <section className="container-table">
       <TableContainer
         component={Paper}
         sx={{
-          width: "80%",
+          width: "70%",
           margin: "auto",
           height: "auto",
           borderRadius: "20px",
@@ -92,8 +99,8 @@ export default function Stock({
                   </TableCell>
                   <TableCell align="right">
                     <div className="button-container">
-                      <button className="acciones">
-                        <BorderColorIcon />
+                      <button className="acciones" onClick={()=> handleOpenEdit(inv.id)}>
+                        <BorderColorIcon /> 
                       </button>
                       <button
                         className="acciones"

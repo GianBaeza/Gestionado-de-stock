@@ -1,4 +1,4 @@
-import { createContext, useEffect, useMemo, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import EliminarAlert from "../EliminarAlert/EliminarAlert";
 import useFilterProducts from "../Hooks/useFilterProducts";
 import useOrdenProducts from "../Hooks/useOrdenProducts";
@@ -21,7 +21,7 @@ export default function InventarioProvider({ children }) {
   const ordenProducts = useOrdenProducts();
    
     
-
+   
 
   
   // Guardar inventario en localStorage cuando cambie
@@ -84,15 +84,28 @@ export default function InventarioProvider({ children }) {
     setInventario((prev) => [...prev, nuevoProducts]);
     
   };
-  
-   const editar = ()=>{
-     inventario.map((item) =>{
-        const [propidad,value] = Object.entries(item)
     
-     })
+
+   const editarItem = ((id, data)=>{
+      const newEditItem = inventario.map((item) => item.id === id ? {
+        ...item, 
+        nombre: data.nombre || item.nombre,
+        stock : data.stock || item.stock,
+        codigo : data.codigo || item.codigo,
+        lista:  data.lista  || item.lista,
+        venta : data.venta || item.venta
+
+    } : item)
+      setInventario(newEditItem)
+      
+   })
+      
+
+     
     
-   }
-   editar()
+   
+   
+
   return (
     <InventarioContext.Provider
       value={{
@@ -104,6 +117,7 @@ export default function InventarioProvider({ children }) {
         EliminarAlert,
         inventario,
         addNuevoProducto,
+        editarItem
       }}
     >
       {children}

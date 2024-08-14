@@ -4,9 +4,12 @@ import "./stockInventario.css";
 import SearchIcon from "@mui/icons-material/Search";
 import AgregarProducto from "../AgregarProducto/AgregarProducto";
 import { InventarioContext } from "../Context/StockContext";
+import EditarModal from "../EditarProducto/EditarModal";
 
 export default function StockInventario() {
   const [openModalAdd, setOpenModalAdd] = useState(false);
+  const [openModalEdit, setOpenModalEdit] = useState(false)
+  const [editId, setEditId] = useState(null)
   const {
     handleDelete,
     handleChange,
@@ -14,7 +17,7 @@ export default function StockInventario() {
     handleOrdenNombreClick,
     valueSearch,
     inventario,
-    
+
   } = useContext(InventarioContext);
 
   //open modal para agregar producto
@@ -25,6 +28,16 @@ export default function StockInventario() {
   const handleCloseModal = () => {
     setOpenModalAdd(false);
   };
+
+  const handleOpenEdit =(id)=>{
+    setEditId(id)
+    setOpenModalEdit(true)
+  }
+  const handleCloseedit = ()=>{
+    setOpenModalEdit(false)
+  }
+ 
+  console.log(editId)
   return (
     <div className="container-Stock">
       <header className="main-Stock">
@@ -55,8 +68,13 @@ export default function StockInventario() {
           inventario={inventario}
           handleOrdenClick={handleOrdenClick}
           handleOrdenNombreClick={handleOrdenNombreClick}
+          handleOpenEdit = {handleOpenEdit}
         />
+        
       </section>
+    
+      {openModalEdit &&  <EditarModal handleCloseedit={handleCloseedit} itemId={editId}/>}
+     
     </div>
   );
 }
