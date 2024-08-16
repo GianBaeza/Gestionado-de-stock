@@ -17,6 +17,7 @@ export default function StockInventario() {
     handleOrdenNombreClick,
     valueSearch,
     inventario,
+    loading
 
   } = useContext(InventarioContext);
 
@@ -37,7 +38,7 @@ export default function StockInventario() {
     setOpenModalEdit(false)
   }
  
-  
+   
   return (
     <div className="container-Stock">
       <header className="main-Stock">
@@ -69,6 +70,7 @@ export default function StockInventario() {
           handleOrdenClick={handleOrdenClick}
           handleOrdenNombreClick={handleOrdenNombreClick}
           handleOpenEdit = {handleOpenEdit}
+          loading={loading}
         />
         
       </section>

@@ -1,107 +1,119 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useCallback, useEffect, useState, useMemo } from "react";
 import EliminarAlert from "../EliminarAlert/EliminarAlert";
 import useFilterProducts from "../Hooks/useFilterProducts";
 import useOrdenProducts from "../Hooks/useOrdenProducts";
-import { collection, getDocs} from "firebase/firestore";
+import { collection, getDocs, doc, updateDoc } from "firebase/firestore";
 import db from "../../firebase/config";
-
 
 export const InventarioContext = createContext();
 
-
-     
-  
 export default function InventarioProvider({ children }) {
-  const [inventario, setInventario] = useState([])
+  const [inventario, setInventario] = useState([]);
+  const [originalInventario, setOriginalInventario] = useState([]); // Mantén una copia original del inventario
   const [sortStock, setSortStock] = useState(false);
   const [sortNombre, setSortNombre] = useState(false);
   const [valueSearch, setValueSearch] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const filterProduct = useFilterProducts();
   const ordenProducts = useOrdenProducts();
-   
 
+  useEffect(() => {
+    const fetchInventario = async () => {
+      setLoading(true);
+      try {
+        const inventarioRef = collection(db, 'Stock');
+        const resp = await getDocs(inventarioRef);
+        const data = resp.docs.map((item) => ({ ...item.data(), id: item.id }));
+        setOriginalInventario(data); // Guarda el inventario original
+        setInventario(data);
+      } catch (error) {
+        console.error('Error fetching inventory:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  useEffect(()=>{
-     const inventarioRef = collection(db, 'Stock');
-      getDocs(inventarioRef)
-      .then((resp)=>{
-        const data = (resp.docs.map((item)=>{
-            return { ...item.data() , id: item.id}
-          }))
-          setInventario(data)
-      })
-     
-  },[])
-  
- 
+    fetchInventario();
+  }, []);
 
-  //Eliminar El Producto
+  // Eliminar Producto
   const handleDelete = (name) => {
     EliminarAlert({
       onConfirm: () => {
-        const itemDelete = inventario.filter((item) => item.nombre !== name);
-        setInventario(itemDelete);
+        setInventario((prevInventario) => prevInventario.filter((item) => item.nombre !== name));
       },
     });
-  }; 
+  };
 
-  
-
-  //valor del inputSearch
-  const handleChange = (e) => {
+  // Filtrar Inventario
+  const handleChange = useCallback((e) => {
     const query = e.target.value;
     setValueSearch(query);
-    const isNumber = !isNaN(Number(query));
-        const cloneInventario = [...inventario]
-       if(query.length > 1){
-        const filtrarInventario  = isNumber  ?  filterProduct(cloneInventario, "codigo", query) : filterProduct(cloneInventario, "nombre", query)
-        setInventario(filtrarInventario)
-       }else{
-        setInventario(cloneInventario)
-       }
- 
-     
-    
+
+    if (query.length === 0) {
+      // Restablecer inventario cuando el input está vacío
+      setInventario(originalInventario);
+    } else {
+      // Filtrar inventario
+      const isNumber = !isNaN(Number(query));
+      const filteredInventario = filterProduct(originalInventario, isNumber ? "codigo" : "nombre", query);
+      setInventario(filteredInventario);
+    }
+  }, [originalInventario, filterProduct]);
+
+  // Ordenar por stock
+  const handleOrdenClick = useCallback(() => {
+    setSortStock((prev) => !prev);
+    const sortedStock = ordenProducts(inventario, "stock", !sortStock);
+    setInventario(sortedStock);
+  }, [inventario, sortStock, ordenProducts]);
+
+  // Ordenar por nombre
+  const handleOrdenNombreClick = useCallback(() => {
+    setSortNombre((prev) => !prev);
+    const sortedNombre = ordenProducts(inventario, "nombre", !sortNombre);
+    setInventario(sortedNombre);
+  }, [inventario, sortNombre, ordenProducts]);
+
+  // Agregar nuevo producto
+  const addNuevoProducto = (nuevoProducto) => {
+    setInventario((prev) => [...prev, nuevoProducto]);
   };
 
-  //Ordenamos por stock
-  const handleOrdenClick =  () => {
-    setSortStock(!sortStock);
-    const ordenStock = ordenProducts(inventario, "stock", sortStock);
-    setInventario(ordenStock);
-  }
-
-  //Ordenamos por nombre
-  const handleOrdenNombreClick = () => {
-    setSortNombre(!sortNombre);
-    const ordenNombre = ordenProducts(inventario, "nombre", sortNombre);
-    setInventario(ordenNombre);
-  }
-
-  //addProducto
-  const addNuevoProducto = (nuevoProducts) => {
-    setInventario((prev) => [...prev, nuevoProducts]);
-    
+  // Editar producto
+  const editarItem = async (id, data) => {
+    try {
+      // Crea una nueva versión del inventario con el ítem editado
+      const newEditItem = inventario.map((item) =>
+        item.id === id
+          ? {
+              ...item,
+              nombre: data.nombre || item.nombre,
+              stock: data.stock || item.stock,
+              codigo: data.codigo || item.codigo,
+              lista: data.lista || item.lista,
+              venta: data.venta || item.venta,
+            }
+          : item
+      );
+  
+      // Actualizo el documento en Firestore
+      const itemRef = doc(db, 'Stock', id);
+      await updateDoc(itemRef, {
+        nombre: data.nombre,
+        stock: data.stock,
+        codigo: data.codigo,
+        lista: data.lista,
+        venta: data.venta,
+      });
+  
+      // Actualiza el estado local con el nuevo inventario
+      setInventario(newEditItem);
+    } catch (error) {
+      console.error('Error updating item:', error);
+    }
   };
-    
-
-   const editarItem = ((id, data)=>{
-      const newEditItem = inventario.map((item) => item.id === id ? {
-        ...item, 
-        nombre: data.nombre || item.nombre,
-        stock : data.stock || item.stock,
-        codigo : data.codigo || item.codigo,
-        lista:  data.lista  || item.lista,
-        venta : data.venta || item.venta,
-
-    } : item)
-      setInventario(newEditItem)
-      
-   })
-      
-
-   
-   
 
   return (
     <InventarioContext.Provider
@@ -114,7 +126,8 @@ export default function InventarioProvider({ children }) {
         EliminarAlert,
         inventario,
         addNuevoProducto,
-        editarItem
+        editarItem,
+        loading
       }}
     >
       {children}

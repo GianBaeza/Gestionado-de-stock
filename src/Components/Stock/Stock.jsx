@@ -20,7 +20,8 @@ export default function Stock({
   handleDelete,
   handleOrdenClick,
   handleOrdenNombreClick,
-  handleOpenEdit
+  handleOpenEdit,
+  loading
  
 }) {
     
@@ -115,7 +116,8 @@ export default function Stock({
             ) : (
               <TableRow>
                 <TableCell colSpan={6} align="center">
-                  Producto no existe
+                {loading ? <span>Cargando...</span> : <span>Inventario Vacio </span>}
+                 
                 </TableCell>
               </TableRow>
             )}
