@@ -105,7 +105,7 @@ export default function Stock({
                       </button>
                       <button
                         className="acciones"
-                        onClick={() => handleDelete(inv.nombre)}
+                        onClick={() => handleDelete(inv.nombre,inv.id)}
                       >
                         <DeleteForeverIcon />
                       </button>

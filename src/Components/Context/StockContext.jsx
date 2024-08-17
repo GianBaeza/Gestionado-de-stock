@@ -1,93 +1,97 @@
-import { createContext, useCallback, useEffect, useState, useMemo } from "react";
+import { createContext, useEffect, useState } from "react";
 import EliminarAlert from "../EliminarAlert/EliminarAlert";
-import useFilterProducts from "../Hooks/useFilterProducts";
 import useOrdenProducts from "../Hooks/useOrdenProducts";
-import { collection, getDocs, doc, updateDoc } from "firebase/firestore";
-import db from "../../firebase/config";
+import { collection, getDocs, doc, updateDoc, addDoc, deleteDoc, where, query} from "firebase/firestore";
+import db from "../../Services/config";
+
 
 export const InventarioContext = createContext();
 
 export default function InventarioProvider({ children }) {
-  const [inventario, setInventario] = useState([]);
-  const [originalInventario, setOriginalInventario] = useState([]); // Mantén una copia original del inventario
+  const [inventario, setInventario] = useState([]); 
   const [sortStock, setSortStock] = useState(false);
   const [sortNombre, setSortNombre] = useState(false);
   const [valueSearch, setValueSearch] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const filterProduct = useFilterProducts();
+
   const ordenProducts = useOrdenProducts();
+const fetchInventario = async () => {
+    try {
+      setLoading(true);
+      const inventarioRef = collection(db, 'inventario');
+      const resp = await getDocs(inventarioRef);
+      const data = resp.docs.map((item) => ({ ...item.data(), id: item.id }));
+      setInventario(data);
+    } catch (error) {
+      console.error("Error fetching inventario:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchInventario = async () => {
-      setLoading(true);
-      try {
-        const inventarioRef = collection(db, 'Stock');
-        const resp = await getDocs(inventarioRef);
-        const data = resp.docs.map((item) => ({ ...item.data(), id: item.id }));
-        setOriginalInventario(data); // Guarda el inventario original
-        setInventario(data);
-      } catch (error) {
-        console.error('Error fetching inventory:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchInventario();
+    fetchInventario(); // Carga inicial de datos
   }, []);
 
+  // Agregar nuevo producto
+ const addNuevoProducto = async (nuevoProducto) => {
+  try {
+    const docRef = await addDoc(collection(db, 'inventario'), nuevoProducto);
+    setInventario((prev) => [...prev, { ...nuevoProducto, id: docRef.id }]);
+  } catch (error) {
+    console.error("Error adding new product:", error);
+  }
+};
+
   // Eliminar Producto
-  const handleDelete = (name) => {
-    EliminarAlert({
-      onConfirm: () => {
-        setInventario((prevInventario) => prevInventario.filter((item) => item.nombre !== name));
-      },
-    });
-  };
+ const deleteItem = (id) => {
+  EliminarAlert({
+    onConfirm: async () => {
+      try {
+        const itemDocRef = doc(db, 'inventario', id);
+        await deleteDoc(itemDocRef);
+        setInventario((prev) => prev.filter((item) => item.id !== id));
+      } catch (error) {
+        console.error("Error deleting item:", error);
+      }
+    },
+  });
+};
+
 
   // Filtrar Inventario
-  const handleChange = useCallback((e) => {
-    const query = e.target.value;
-    setValueSearch(query);
+  const filtrarInventario = async (e, check) => {
+  const queryValue = e.target.value;
+  setValueSearch(queryValue);
 
-    if (query.length === 0) {
-      // Restablecer inventario cuando el input está vacío
-      setInventario(originalInventario);
-    } else {
-      // Filtrar inventario
-      const isNumber = !isNaN(Number(query));
-      const filteredInventario = filterProduct(originalInventario, isNumber ? "codigo" : "nombre", query);
-      setInventario(filteredInventario);
-    }
-  }, [originalInventario, filterProduct]);
-
-  // Ordenar por stock
-  const handleOrdenClick = useCallback(() => {
-    setSortStock((prev) => !prev);
-    const sortedStock = ordenProducts(inventario, "stock", !sortStock);
-    setInventario(sortedStock);
-  }, [inventario, sortStock, ordenProducts]);
-
-  // Ordenar por nombre
-  const handleOrdenNombreClick = useCallback(() => {
-    setSortNombre((prev) => !prev);
-    const sortedNombre = ordenProducts(inventario, "nombre", !sortNombre);
-    setInventario(sortedNombre);
-  }, [inventario, sortNombre, ordenProducts]);
-
-  // Agregar nuevo producto
-  const addNuevoProducto = (nuevoProducto) => {
-    setInventario((prev) => [...prev, nuevoProducto]);
-  };
-
-  // Editar producto
-  const editarItem = async (id, data) => {
+  if (queryValue.trim() === "") {
+    // Si el campo de búsqueda está vacío, carga todos los productos
+    fetchInventario(); 
+  } else {
     try {
-      // Crea una nueva versión del inventario con el ítem editado
-      const newEditItem = inventario.map((item) =>
-        item.id === id
-          ? {
+      // Crear una consulta filtrando por el nombre
+      const inventarioRef = collection(db, 'inventario');
+      const q = check ? query(inventarioRef, where('codigo', '>=', queryValue), where('codigo', '<=', queryValue + '\uf8ff')) : query(inventarioRef, where('nombre', '>=', queryValue), where('nombre', '<=', queryValue + '\uf8ff'))
+        const resp = await getDocs(q)
+        const data = resp.docs.map((item) => ({ ...item.data(), id: item.id }));
+      setInventario(data);
+      
+    } catch (error) {
+      console.error( error);
+    }
+    }
+    
+};
+   
+
+ // Editar producto
+    const editarItem = async (id, data) => { 
+      try {
+    const itemDocRef = doc(db, 'inventario', id);
+    await updateDoc(itemDocRef, data);
+    setInventario((prev) =>
+      prev.map((item) => (item.id === id ?{
               ...item,
               nombre: data.nombre || item.nombre,
               stock: data.stock || item.stock,
@@ -95,34 +99,43 @@ export default function InventarioProvider({ children }) {
               lista: data.lista || item.lista,
               venta: data.venta || item.venta,
             }
-          : item
-      );
-  
-      // Actualizo el documento en Firestore
-      const itemRef = doc(db, 'Stock', id);
-      await updateDoc(itemRef, {
-        nombre: data.nombre,
-        stock: data.stock,
-        codigo: data.codigo,
-        lista: data.lista,
-        venta: data.venta,
-      });
-  
-      // Actualiza el estado local con el nuevo inventario
-      setInventario(newEditItem);
-    } catch (error) {
-      console.error('Error updating item:', error);
-    }
+          : item))
+    );
+  } catch (error) {
+    console.error("Error updating item:", error);
+  }
+    
+
+
   };
+
+  
+  // Ordenar por stock
+  const ordenarXStock = () => {
+    setSortStock((prev) => !prev);
+    const sortedStock = ordenProducts(inventario, "stock", !sortStock);
+    setInventario(sortedStock);
+  };
+
+  // Ordenar por nombre
+  const ordenarXNombre = () => {
+    setSortNombre((prev) => !prev);
+    const sortedNombre = ordenProducts(inventario, "nombre", !sortNombre);
+    setInventario(sortedNombre);
+  }
+
+
+
+ 
 
   return (
     <InventarioContext.Provider
       value={{
-        handleDelete,
-        handleChange,
+        deleteItem,
+        filtrarInventario,
         valueSearch,
-        handleOrdenClick,
-        handleOrdenNombreClick,
+        ordenarXStock,
+        ordenarXNombre,
         EliminarAlert,
         inventario,
         addNuevoProducto,

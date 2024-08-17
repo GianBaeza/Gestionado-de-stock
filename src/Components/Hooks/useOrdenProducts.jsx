@@ -1,14 +1,12 @@
 export default function useOrdenProducts() {
   const ordenProducts = (objt, prop, state) => {
-    const objtClone = [...objt];
-
     // orden por stock
-    if (typeof objtClone[0][prop] === "number") {
-      objtClone.sort((a, b) => {
+    if (typeof objt[prop] === Number) {
+      objt.sort((a, b) => {
         return state ? a[prop] - b[prop] : b[prop] - a[prop];
       });
-    } else if (typeof objtClone[0][prop] === "string") {
-      objtClone.sort((a, b) => {
+    } else if (typeof objt[prop] === "string") {
+      objt.sort((a, b) => {
         if (state) {
           // Orden ascendente (A a Z)
           if (a[prop].toLowerCase() < b[prop].toLowerCase()) return -1;
@@ -23,7 +21,7 @@ export default function useOrdenProducts() {
       });
     }
 
-    return objtClone;
+  
   };
 
   return ordenProducts;

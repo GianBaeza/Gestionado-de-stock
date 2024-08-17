@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import "../AgregarProducto/agregarProducto.css";
 import CloseIcon from "@mui/icons-material/Close";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { InventarioContext } from "../Context/StockContext";
 
 
@@ -15,7 +15,7 @@ export default function AgregarProducto({ closeModal }) {
             id: Date.now(), // Genera un ID único basado en el tiempo actual
             nombre: data.nombre,
             stock: Number(data.stock),
-            codigo: data.codigo,
+            codigo: data.codigo.toUpperCase(),
             lista: parseFloat(data.lista), // Asegúrate de convertir a número
             venta: parseFloat(data.venta),
           }
@@ -43,7 +43,7 @@ export default function AgregarProducto({ closeModal }) {
             
           />
           {errors.nombre &&  <span className={errors.nombre ? "errorOn" : null}>Ingrese un nombre valido</span>}
-          <label htmlFor="stock"></label>
+          <label htmlFor="stock">Stock</label>
           <input type="number" {...register("stock",{ required: true })} placeholder="stock..." />
           {errors.stock &&  <span className={errors.stock ? "errorOn" : null}>Ingrese un stock valido</span>}
 
