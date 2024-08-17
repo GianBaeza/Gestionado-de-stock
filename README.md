@@ -1,4 +1,6 @@
 Stock de Inventario📦
+
+
 Descripción
 Stock de Inventario es una aplicación web desarrollada con React que te permite gestionar el inventario de tu negocio de manera eficiente. La aplicación está diseñada para facilitar el control de productos, permitiéndote agregar nuevos artículos, editar detalles existentes, eliminar productos y llevar un registro preciso del stock disponible, así como de los precios de lista y venta. Es ideal para pequeñas y medianas empresas que buscan una solución simple y efectiva para la gestión de su inventario.
 
