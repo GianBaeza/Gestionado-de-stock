@@ -1,7 +1,8 @@
 import { createContext, useEffect, useState } from "react";
 import EliminarAlert from "../EliminarAlert/EliminarAlert";
 import useOrdenProducts from "../Hooks/useOrdenProducts";
-import { collection, getDocs, doc, updateDoc, addDoc, deleteDoc, where, query} from "firebase/firestore";
+import { collection, getDocs, doc, updateDoc, addDoc, deleteDoc, where, query } from "firebase/firestore";
+import { remove } from "firebase/database";
 import db from "../../Services/config";
 
 
@@ -15,7 +16,7 @@ export default function InventarioProvider({ children }) {
   const [loading, setLoading] = useState(false);
 
 
-  const ordenProducts = useOrdenProducts();
+const ordenProducts = useOrdenProducts();
 const fetchInventario = async () => {
     try {
       setLoading(true);
@@ -50,8 +51,9 @@ const fetchInventario = async () => {
     onConfirm: async () => {
       try {
         const itemDocRef = doc(db, 'inventario', id);
-        await deleteDoc(itemDocRef);
-        setInventario((prev) => prev.filter((item) => item.id !== id));
+        await remove(itemDocRef);
+        const productoDelete = inventario.filter((item) => item.id !== id)
+        setInventario(productoDelete);
       } catch (error) {
         console.error("Error deleting item:", error);
       }
@@ -66,13 +68,14 @@ const fetchInventario = async () => {
   setValueSearch(queryValue);
 
   if (queryValue.trim() === "") {
-    // Si el campo de búsqueda está vacío, carga todos los productos
+    // Si el campo  está vacío, carga todos los productos
     fetchInventario(); 
   } else {
     try {
       // Crear una consulta filtrando por el nombre
       const inventarioRef = collection(db, 'inventario');
-      const q = check ? query(inventarioRef, where('codigo', '>=', queryValue), where('codigo', '<=', queryValue + '\uf8ff')) : query(inventarioRef, where('nombre', '>=', queryValue), where('nombre', '<=', queryValue + '\uf8ff'))
+     const queryFilter = queryValue.toUpperCase()
+      const q = check ? query(inventarioRef, where('codigo', '>=', queryFilter), where('codigo', '<=', queryFilter + '\uf8ff')) : query(inventarioRef, where('nombre', '>=', queryFilter), where('nombre', '<=', queryFilter + '\uf8ff'))
         const resp = await getDocs(q)
         const data = resp.docs.map((item) => ({ ...item.data(), id: item.id }));
       setInventario(data);
@@ -86,16 +89,17 @@ const fetchInventario = async () => {
    
 
  // Editar producto
-    const editarItem = async (id, data) => { 
+  const editarItem = async (id, data) => { 
+  
       try {
     const itemDocRef = doc(db, 'inventario', id);
     await updateDoc(itemDocRef, data);
     setInventario((prev) =>
       prev.map((item) => (item.id === id ?{
               ...item,
-              nombre: data.nombre || item.nombre,
+              nombre: data.nombre|| item.nombre,
               stock: data.stock || item.stock,
-              codigo: data.codigo || item.codigo,
+              codigo: data.codigo.toUpperCase() || item.codigo,
               lista: data.lista || item.lista,
               venta: data.venta || item.venta,
             }
@@ -104,9 +108,6 @@ const fetchInventario = async () => {
   } catch (error) {
     console.error("Error updating item:", error);
   }
-    
-
-
   };
 
   

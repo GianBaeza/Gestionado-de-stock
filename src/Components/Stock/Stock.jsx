@@ -9,6 +9,7 @@ import "./stock.css";
 import ImportExportIcon from "@mui/icons-material/ImportExport";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import Loading from "./loaders/Loading";
 
 
 //Estilos del  inventario
@@ -116,8 +117,8 @@ export default function Stock({
             ) : (
               <TableRow>
                 <TableCell colSpan={6} align="center">
-                {loading ? <span>Cargando...</span> : <span>Inventario Vacio </span>}
-                 
+                {loading ? <span><Loading/></span> : <span>Inventario Vacio </span>}
+                
                 </TableCell>
               </TableRow>
             )}

@@ -37,28 +37,28 @@ export default function StockInventario() {
 
   const handleCloseEditModal = useCallback(() => {
     setOpenModalEdit(false);
-    console.log('rendersOrCloseModal')
+
   }, []);
 
   const handleOrdenNombreClick = useCallback(() => {
     ordenarXNombre();
-    console.log('rendersOrdenNOMBRE')
+  
   }, [ordenarXNombre]);
 
   const handleOrdenarStock = useCallback(() => {
     ordenarXStock();
-    console.log('rendersOrdenarstoc')
+  
   }, [ordenarXStock]);
 
   const handleDelete = useCallback((name, id) => {
     deleteItem(name, id);
-    console.log('rendersDelete')
+    
   }, [deleteItem]);
 
-  const handleChange = useCallback((e) => {
+  const handleChange =(e) => {
     filtrarInventario(e, check);
-      console.log('render')
-  }, [check, filtrarInventario]);
+     
+  };
 
   return (
     <div className="container-Stock">
