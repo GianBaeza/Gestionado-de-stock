@@ -32,6 +32,7 @@ export default function Stock({ handleOpenEdit }) {
                     margin: "auto",
                     height: "auto",
                     borderRadius: "20px",
+
                 }}
             >
                 <Table>
@@ -75,7 +76,12 @@ export default function Stock({ handleOpenEdit }) {
                     <TableBody>
                         {inventario.length > 0 ? (
                             inventario.map((inv) => (
-                                <TableRow key={inv.id}>
+                                <TableRow key={inv.id} sx={{
+                                    maxHeight: "500px",
+                                    borderRadius: "20px",
+                                    overflowY: "auto",
+                                    backgroundColor: 'red'
+                                }}>
                                     <TableCell component="th" scope="row" sx={esiloinfo}>
                                         {inv.nombre}
                                     </TableCell>

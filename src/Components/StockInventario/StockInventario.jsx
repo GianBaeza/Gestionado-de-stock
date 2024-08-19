@@ -44,6 +44,7 @@ export default function StockInventario() {
         if (data) {
             editarItem(editId, data)
         }
+        handleCloseEditModal()
     }
 
 

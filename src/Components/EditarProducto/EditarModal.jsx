@@ -20,7 +20,7 @@ export default function EditarModal({ handleCloseedit, addEditcion }) {
                         <input
                             type="text"
                             {...register("nombre")}
-                            placeholder="producto..."
+                            placeholder="Nombre : correa , pelota..."
                         />
 
                         <input type="number" {...register("stock")} placeholder="stock..." />
@@ -31,19 +31,20 @@ export default function EditarModal({ handleCloseedit, addEditcion }) {
                             <input
                                 type="number"
                                 {...register("lista")}
-                                placeholder="$"
+                                placeholder="$ Lista"
                                 className="price-editar"
+
                             />
                             <input
                                 type="number"
                                 {...register("venta")}
-                                placeholder="$"
+                                placeholder="$ Venta"
                                 className="price-editar"
 
                             />
 
                         </div>
-                        <input type="submit" value="Agregar" className="btn-agregar" />
+                        <input type="submit" value="Guardar" className="btn-agregar" />
                     </form>
                 </div>
             </main>

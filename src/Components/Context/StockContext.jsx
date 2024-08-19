@@ -1,9 +1,8 @@
 import { createContext, useEffect, useState } from "react";
 import EliminarAlert from "../EliminarAlert/EliminarAlert";
 import useOrdenProducts from "../Hooks/useOrdenProducts";
-import { collection, getDocs, doc, updateDoc, addDoc, deleteDoc, where, query } from "firebase/firestore";
+import { collection, getDocs, doc, updateDoc, addDoc, deleteDoc } from "firebase/firestore";
 import db from "../../Services/config";
-import { useDebounce } from "use-debounce";
 
 
 export const InventarioContext = createContext();
@@ -97,33 +96,36 @@ export default function InventarioProvider({ children }) {
 
     // Editar producto
     const editarItem = async (id, data) => {
+        console.log('render')
 
         try {
             const itemDocRef = doc(db, 'inventario', id);
-            await updateDoc(itemDocRef, data);
-            setInventario((prev) =>
-                prev.map((item) => (item.id === id ? {
-                    ...item,
-                    nombre: data.nombre || item.nombre,
-                    stock: data.stock || item.stock,
-                    codigo: data.codigo.toUpperCase() || item.codigo,
-                    lista: data.lista || item.lista,
-                    venta: data.venta || item.venta,
-                }
-                    : item))
-            );
+
+
+            const primerelemento = inventario.find((item) => item.id === id)
+            console.log(primerelemento)
+            const itemEditado = {
+                nombre: data.nombre || primerelemento.nombre,
+                stock: data.stock || primerelemento.stock,
+                codigo: data.codigo || primerelemento.codigo,
+                lista: data.lista || primerelemento.lista,
+                venta: data.venta || primerelemento.venta,
+
+            }
+            console.log(itemEditado)
+
+            await updateDoc(itemDocRef, itemEditado);
+            fetchInventario()
         } catch (error) {
             console.error("Error updating item:", error);
         }
     };
 
 
-
-
-
     // Ordenar por stock
     const ordenarXStock = () => {
         setOrdenar((prev) => ({ ...prev, sortStock: !prev.sortStock }));
+
         const sortedStock = ordenProducts(inventario, 'stock', !ordenar.sortStock);
         setInventario(sortedStock);
     };
