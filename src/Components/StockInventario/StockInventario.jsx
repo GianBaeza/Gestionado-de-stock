@@ -7,101 +7,87 @@ import { InventarioContext } from "../Context/StockContext";
 import EditarModal from "../EditarProducto/EditarModal";
 
 export default function StockInventario() {
-  const [openModalAdd, setOpenModalAdd] = useState(false);
-  const [openModalEdit, setOpenModalEdit] = useState(false);
-  const [check, setCheck] = useState(false);
-  const [editId, setEditId] = useState(null);
-  const {
-    deleteItem,
-    filtrarInventario,
-    ordenarXStock,
-    ordenarXNombre,
-    valueSearch,
-    inventario,
-    loading,
-  } = useContext(InventarioContext);
+    const [openModal, setOpenModal] = useState({
+        agregar: false,
+        edit: false
+    });
+    const [check, setCheck] = useState(false);
+    const [editId, setEditId] = useState(null);
+    const {
+        filtrarInventario,
+        inventario,
+        editarItem
+    } = useContext(InventarioContext);
 
-  const handleOpenAgregarModal = useCallback(() => {
-    setOpenModalAdd(prev => !prev);
-  }, []);
+    const handleOpenAgregarModal = useCallback(() => {
+        setOpenModal(prev => ({ ...prev, agregar: true }))
+    }, []);
 
-  const handleCloseAgregarModal = useCallback(() => {
-    setOpenModalAdd(false);
-  }, []);
+    const handleCloseAgregarModal = useCallback(() => {
+        setOpenModal(prev => ({ ...prev, agregar: false }));
+    }, []);
 
-  const handleOpenEditModal = useCallback((id) => {
-    setEditId(id);
-    setOpenModalEdit(true);
-    
-  }, []);
+    const handleOpenEditModal = useCallback((id) => {
+        setEditId(id);
+        setOpenModal(prev => ({ ...prev, edit: true }));
+    }, []);
 
-  const handleCloseEditModal = useCallback(() => {
-    setOpenModalEdit(false);
+    const handleCloseEditModal = useCallback(() => {
+        setOpenModal(prev => ({ ...prev, edit: false }));
+    }, []);
 
-  }, []);
+    const handleChange = (e) => {
+        filtrarInventario(e, check);
+    };
 
-  const handleOrdenNombreClick = useCallback(() => {
-    ordenarXNombre();
-  
-  }, [ordenarXNombre]);
+    const addEditcion = (data) => {
+        if (data) {
+            editarItem(editId, data)
+        }
+    }
 
-  const handleOrdenarStock = useCallback(() => {
-    ordenarXStock();
-  
-  }, [ordenarXStock]);
 
-  const handleDelete = useCallback((name, id) => {
-    deleteItem(name, id);
-    
-  }, [deleteItem]);
-
-  const handleChange =(e) => {
-    filtrarInventario(e, check);
-     
-  };
-
-  return (
-    <div className="container-Stock">
-      <header className="main-Stock">
-        <h1>Inventario: {`${inventario.length} Productos`}</h1>
-        <section>
-          <button onClick={handleOpenAgregarModal}>Nuevo Articulo</button>
-          {openModalAdd && <AgregarProducto closeModal={handleCloseAgregarModal} />}
-          <div>
-            <div className="input-container">
-              <SearchIcon className="search-icon" />
-              <input
-                type="search"
-                name="search"
-                id="buscarItem"
-                placeholder="Buscar Articulo.."
-                onChange={handleChange}
-                value={valueSearch}
-              />
-              <label htmlFor="inputCodigo">
-                Por codigo
-                <input
-                  type="checkbox"
-                  name="inputCodigo"
-                  checked={check}
-                  onChange={e => setCheck(e.target.checked)}
+    return (
+        <div className="container-Stock">
+            <header className="main-Stock">
+                <h1>Inventario: {`${inventario.length} Productos`}</h1>
+                <section>
+                    <button onClick={handleOpenAgregarModal}>Nuevo Articulo</button>
+                    {openModal.agregar && (
+                        <AgregarProducto closeModal={handleCloseAgregarModal} />
+                    )}
+                    <div>
+                        <div className="input-container">
+                            <SearchIcon className="search-icon" />
+                            <input
+                                type="search"
+                                name="search"
+                                id="buscarItem"
+                                placeholder="Buscar Articulo.."
+                                onChange={handleChange}
+                            />
+                            <label htmlFor="inputCodigo">
+                                Por codigo
+                                <input
+                                    type="checkbox"
+                                    name="inputCodigo"
+                                    checked={check}
+                                    onChange={(e) => setCheck(e.target.checked)}
+                                />
+                            </label>
+                        </div>
+                    </div>
+                </section>
+            </header>
+            <section className="container-table">
+                <Stock
+                    inventario={inventario}
+                    handleOpenEdit={handleOpenEditModal}
                 />
-              </label>
-            </div>
-          </div>
-        </section>
-      </header>
-      <section className="container-table">
-        <Stock
-          handleDelete={handleDelete}
-          inventario={inventario}
-          handleOrdenClick={handleOrdenarStock}
-          handleOrdenNombreClick={handleOrdenNombreClick}
-          handleOpenEdit={handleOpenEditModal}
-          loading={loading}
-        />
-      </section>
-      {openModalEdit && <EditarModal handleCloseedit={handleCloseEditModal} itemId={editId} />}
-    </div>
-  );
+            </section>
+            {openModal.edit && (
+                <EditarModal handleCloseedit={handleCloseEditModal} addEditcion={addEditcion} />
+            )}
+        </div>
+    );
 }
