@@ -12,3 +12,89 @@
   padding: 5px;
   color: rgb(89, 90, 92);
 }
+.container-table :-webkit-scrollbar {
+  overscroll-behavior: none;
+}
+.TableRow :hover {
+  background-color: rgb(88, 88, 88) e;
+}
+
+.container-table {
+  padding: 20px 0;
+}
+.MuiTableCell-root {
+  font-size: 16px;
+  padding: 12px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.MuiTableHead-root {
+  background-color: #f0f0f0;
+}
+
+.MuiTableCell-head {
+  font-weight: bold;
+  color: #555;
+}
+
+.MuiTableRow-root {
+  transition: background-color 0.3s ease;
+}
+
+.MuiTableRow-root:hover {
+  background-color: #2e2e2e31;
+}
+
+/* stock.css */
+.custom-scrollbar {
+  overflow: scroll;
+}
+
+/* Define the scrollbar style */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 15px;
+  height: 15px;
+}
+
+/* Define the thumb style */
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom right, #4d7fff 0%, #1a56ff 100%);
+  border-radius: 5px;
+}
+
+/* Define the track style */
+.custom-scrollbar::-webkit-scrollbar-track {
+  background-color: #ddd;
+  border: 10px solid #ccc;
+}
+
+/* Style the beginning section of the scrollbar track */
+.custom-scrollbar::-webkit-scrollbar-track-piece:vertical:start {
+  background-color: #4d7fff;
+}
+
+/* Style the end section of the scrollbar track */
+.custom-scrollbar::-webkit-scrollbar-track-piece:vertical:end {
+  background-color: green;
+}
+
+/* Define the button style */
+.custom-scrollbar::-webkit-scrollbar-button:vertical {
+  background-color: #4d7fff;
+  background-repeat: no-repeat;
+  background-size: 50%;
+  background-position: center;
+}
+
+.custom-scrollbar::-webkit-scrollbar-button:vertical:decrement {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' fill='%23000000' viewBox='0 0 256 256'%3E%3Cpath d='M213.66,165.66a8,8,0,0,1-11.32,0L128,91.31,53.66,165.66a8,8,0,0,1-11.32-11.32l80-80a8,8,0,0,1,11.32,0l80,80A8,8,0,0,1,213.66,165.66Z'%3E%3C/path%3E%3C/svg%3E");
+}
+
+.custom-scrollbar::-webkit-scrollbar-button:vertical:increment {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' fill='%23000000' viewBox='0 0 256 256'%3E%3Cpath d='M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z'%3E%3C/path%3E%3C/svg%3E");
+}
+
+/* Define the button style when being hovered over */
+.custom-scrollbar::-webkit-scrollbar-button:hover {
+  background-color: #999999;
+}

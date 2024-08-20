@@ -13,29 +13,37 @@ import Loading from "./loaders/Loading";
 import { useContext } from "react";
 import { InventarioContext } from "../Context/StockContext";
 
-
-//Estilos del  inventario
+//Estilos del inventario
 const estiloHead = { fontSize: 20 };
-const esiloinfo = { fontSize: 15 };
+const estiloInfo = { fontSize: 15 };
 
 export default function Stock({ handleOpenEdit }) {
-
-    const { ordenarXNombre, ordenarXStock, deleteItem, inventario, loading } = useContext(InventarioContext)
-
+    const { ordenarXNombre, ordenarXStock, deleteItem, inventario, loading } =
+        useContext(InventarioContext);
 
     return (
-        <section className="container-table">
+        <section >
             <TableContainer
                 component={Paper}
                 sx={{
-                    width: "70%",
+                    width: "80%",
                     margin: "auto",
-                    height: "auto",
+                    height: "500px",
                     borderRadius: "20px",
+                    overflowY: "auto",
+                    scrollBehavior: "smooth",
+                    scrollbarColor: "#888 #f1f1f1",
+                    paddingLeft: '5px',
+                    paddingRight: '5px',
+                    paddingBottom: '5px',
+
+
 
                 }}
+
+
             >
-                <Table>
+                <Table stickyHeader> {/* stickyHeader hace que permanezca visible mientras se hace scroll */}
                     <TableHead>
                         <TableRow>
                             <TableCell sx={estiloHead}>
@@ -59,7 +67,7 @@ export default function Stock({ handleOpenEdit }) {
                                 />
                             </TableCell>
                             <TableCell align="right" sx={estiloHead}>
-                                Codigo
+                                Código
                             </TableCell>
                             <TableCell align="right" sx={estiloHead}>
                                 $ Lista
@@ -68,40 +76,36 @@ export default function Stock({ handleOpenEdit }) {
                                 $ Venta
                             </TableCell>
                             <TableCell align="right" sx={estiloHead}>
-                                Accion
+                                Acción
                             </TableCell>
                         </TableRow>
                     </TableHead>
 
-                    <TableBody>
+                    <TableBody className="snap-x snap-mandatory">
                         {inventario.length > 0 ? (
                             inventario.map((inv) => (
-                                <TableRow key={inv.id} sx={{
-                                    maxHeight: "500px",
-                                    borderRadius: "20px",
-                                    overflowY: "auto",
-                                    backgroundColor: 'red'
-                                }}>
-                                    <TableCell component="th" scope="row" sx={esiloinfo}>
+                                <TableRow key={inv.id} className="snap-always snap-center">
+                                    <TableCell component="th" scope="row" sx={estiloInfo}>
                                         {inv.nombre}
                                     </TableCell>
-                                    <TableCell align="right" sx={esiloinfo}>
+                                    <TableCell align="right" sx={estiloInfo}>
                                         {inv.stock}
-
                                     </TableCell>
-                                    <TableCell align="right" sx={esiloinfo}>
+                                    <TableCell align="right" sx={estiloInfo}>
                                         {inv.codigo}
                                     </TableCell>
-                                    <TableCell align="right" sx={esiloinfo}>
+                                    <TableCell align="right" sx={estiloInfo}>
                                         $ {new Intl.NumberFormat("es-AR").format(inv.lista)}
                                     </TableCell>
-                                    <TableCell align="right" sx={esiloinfo}>
-                                        {" "}
+                                    <TableCell align="right" sx={estiloInfo}>
                                         $ {new Intl.NumberFormat("es-AR").format(inv.venta)}
                                     </TableCell>
                                     <TableCell align="right">
                                         <div className="button-container">
-                                            <button className="acciones" onClick={() => handleOpenEdit(inv.id)}>
+                                            <button
+                                                className="acciones"
+                                                onClick={() => handleOpenEdit(inv.id)}
+                                            >
                                                 <BorderColorIcon />
                                             </button>
                                             <button
@@ -112,18 +116,26 @@ export default function Stock({ handleOpenEdit }) {
                                             </button>
                                         </div>
                                     </TableCell>
+
                                 </TableRow>
+
                             ))
                         ) : (
-                            <TableRow>
-                                <TableCell colSpan={6} align="center">
-                                    {loading ? <span><Loading /></span> : <span>Inventario Vacio </span>}
+                            <TableBody olSpan={6} align="center">
 
-                                </TableCell>
-                            </TableRow>
+                                {loading ? (
+                                    <span>
+                                        <Loading />
+                                    </span>
+                                ) : (
+                                    <span>Inventario Vacío</span>
+                                )}
+
+                            </TableBody>
                         )}
                     </TableBody>
                 </Table>
+
             </TableContainer>
         </section>
     );

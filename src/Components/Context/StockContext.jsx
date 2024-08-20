@@ -96,14 +96,14 @@ export default function InventarioProvider({ children }) {
 
     // Editar producto
     const editarItem = async (id, data) => {
-        console.log('render')
+
 
         try {
             const itemDocRef = doc(db, 'inventario', id);
 
 
             const primerelemento = inventario.find((item) => item.id === id)
-            console.log(primerelemento)
+
             const itemEditado = {
                 nombre: data.nombre || primerelemento.nombre,
                 stock: data.stock || primerelemento.stock,
@@ -112,7 +112,7 @@ export default function InventarioProvider({ children }) {
                 venta: data.venta || primerelemento.venta,
 
             }
-            console.log(itemEditado)
+
 
             await updateDoc(itemDocRef, itemEditado);
             fetchInventario()
