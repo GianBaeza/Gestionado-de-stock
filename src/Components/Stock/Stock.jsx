@@ -29,10 +29,6 @@ export default function Stock({ handleOpenEdit }) {
                     width: "80%",
                     margin: "auto",
                     height: "500px",
-                    borderRadius: "20px",
-                    overflowY: "auto",
-                    scrollBehavior: "smooth",
-                    scrollbarColor: "#888 #f1f1f1",
                     paddingLeft: '5px',
                     paddingRight: '5px',
                     paddingBottom: '5px',
@@ -54,7 +50,9 @@ export default function Stock({ handleOpenEdit }) {
                                         width: 20,
                                         height: 20,
                                         margin: "auto",
+
                                     }}
+
                                     onClick={() => ordenarXNombre()}
                                 />
                             </TableCell>
@@ -81,10 +79,14 @@ export default function Stock({ handleOpenEdit }) {
                         </TableRow>
                     </TableHead>
 
-                    <TableBody className="snap-x snap-mandatory">
+                    <TableBody className="snap-x snap-mandatory" sx={{
+                        borderRadius: "20px",
+                        overflowY: "100px",
+                        overflowX: 'auto',
+                    }}>
                         {inventario.length > 0 ? (
                             inventario.map((inv) => (
-                                <TableRow key={inv.id} className="snap-always snap-center">
+                                <TableRow key={inv.id}>
                                     <TableCell component="th" scope="row" sx={estiloInfo}>
                                         {inv.nombre}
                                     </TableCell>

@@ -46,7 +46,20 @@ export default function InventarioProvider({ children }) {
 
 
     // Agregar nuevo producto
-    const addNuevoProducto = async (nuevoProducto) => {
+    const addNuevoProducto = async (data) => {
+        const fechaDate = new Date(data.fecha)
+
+
+
+        const nuevoProducto = {
+            id: Date.now(),
+            nombre: data.nombre,
+            fecha: fechaDate,
+            stock: Number(data.stock),
+            codigo: data.codigo.toUpperCase(),
+            lista: parseFloat(data.lista),
+            venta: parseFloat(data.venta),
+        }
         try {
             const docRef = await addDoc(collection(db, 'inventario'), nuevoProducto);
             setInventario((prev) => [...prev, { ...nuevoProducto, id: docRef.id }]);
@@ -105,6 +118,7 @@ export default function InventarioProvider({ children }) {
             const primerelemento = inventario.find((item) => item.id === id)
 
             const itemEditado = {
+
                 nombre: data.nombre || primerelemento.nombre,
                 stock: data.stock || primerelemento.stock,
                 codigo: data.codigo || primerelemento.codigo,
@@ -112,7 +126,7 @@ export default function InventarioProvider({ children }) {
                 venta: data.venta || primerelemento.venta,
 
             }
-
+            console.log(itemEditado)
 
             await updateDoc(itemDocRef, itemEditado);
             fetchInventario()
