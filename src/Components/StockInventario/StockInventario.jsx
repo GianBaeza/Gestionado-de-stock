@@ -5,6 +5,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import AgregarProducto from "../AgregarProducto/AgregarProducto";
 import { InventarioContext } from "../Context/StockContext";
 import EditarModal from "../EditarProducto/EditarModal";
+import EliminarAlert from "../EliminarAlert/EliminarAlert";
 
 export default function StockInventario() {
     const [openModal, setOpenModal] = useState({
@@ -16,7 +17,8 @@ export default function StockInventario() {
     const {
         filtrarInventario,
         inventario,
-        editarItem
+        editarItem,
+        limpiarInventario
     } = useContext(InventarioContext);
 
     const handleOpenAgregarModal = useCallback(() => {
@@ -51,7 +53,7 @@ export default function StockInventario() {
     return (
         <div className="container-Stock">
             <header className="main-Stock">
-                <h1>Inventario: {`${inventario.length} Productos`}</h1>
+                <h1 className="h1">Inventario: {`${inventario.length} Productos`}</h1>
                 <section>
                     <button onClick={handleOpenAgregarModal}>Nuevo Articulo</button>
                     {openModal.agregar && (
@@ -76,6 +78,7 @@ export default function StockInventario() {
                                     onChange={(e) => setCheck(e.target.checked)}
                                 />
                             </label>
+                            <button onClick={() => limpiarInventario()}>Borrar inventario </button>
                         </div>
                     </div>
                 </section>

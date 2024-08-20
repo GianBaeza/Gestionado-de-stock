@@ -1,8 +1,8 @@
 import Swal from "sweetalert2";
 
-export default function EliminarAlert({ onConfirm, onCancel }) {
+export default function EliminarAlert({ onConfirm, title }) {
     return Swal.fire({
-        title: "¿Estás seguro?",
+        title: title,
         icon: "warning",
         showCancelButton: true,
         confirmButtonText: "Sí, eliminar",
@@ -10,8 +10,6 @@ export default function EliminarAlert({ onConfirm, onCancel }) {
     }).then((result) => {
         if (result.isConfirmed) {
             onConfirm();
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-            onCancel();
         }
     });
 }

@@ -1,5 +1,5 @@
 .container-Stock {
-  background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);
+  /* background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%); */
   width: 100%;
   height: 100vh;
   display: flex;
@@ -7,6 +7,7 @@
   align-items: center;
   flex-direction: column;
   gap: 40px;
+  background-color: #2f5922;
 }
 .main-Stock {
   background-color: #a8ede900;
@@ -44,7 +45,7 @@ button {
   padding-left: 25px;
 }
 .input-container input::placeholder {
-  color: #0000004b;
+  color: #ffffff;
 }
 .search-icon {
   position: relative;
@@ -53,4 +54,7 @@ button {
 }
 .container-table {
   width: 100%;
+}
+.h1 {
+  color: #ffffff;
 }

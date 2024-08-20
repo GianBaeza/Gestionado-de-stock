@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import EliminarAlert from "../EliminarAlert/EliminarAlert";
 import useOrdenProducts from "../Hooks/useOrdenProducts";
-import { collection, getDocs, doc, updateDoc, addDoc, deleteDoc } from "firebase/firestore";
+import { collection, getDocs, doc, updateDoc, addDoc, deleteDoc, writeBatch } from "firebase/firestore";
 import db from "../../Services/config";
 
 
@@ -48,13 +48,17 @@ export default function InventarioProvider({ children }) {
     // Agregar nuevo producto
     const addNuevoProducto = async (data) => {
         const fechaDate = new Date(data.fecha)
+        const anio = fechaDate.getFullYear();
+        const mes = fechaDate.getMonth() + 1;
+        const dia = fechaDate.getDate();
+        console.log(dia, mes, anio)
 
 
 
         const nuevoProducto = {
             id: Date.now(),
             nombre: data.nombre,
-            fecha: fechaDate,
+            fecha: new Date(`${anio} / ${mes} / ${dia}`),
             stock: Number(data.stock),
             codigo: data.codigo.toUpperCase(),
             lista: parseFloat(data.lista),
@@ -85,7 +89,7 @@ export default function InventarioProvider({ children }) {
                 } catch (error) {
                     console.error("Error deleting item:", error);
                 }
-            },
+            }, title: '¿Eliminar ítem?',
         });
     };
 
@@ -150,6 +154,28 @@ export default function InventarioProvider({ children }) {
         const sortedNombre = ordenProducts(inventario, 'nombre', !ordenar.sortNombre);
         setInventario(sortedNombre);
     };
+    const limpiarInventario = () => {
+        EliminarAlert({
+            onConfirm: async () => {
+                try {
+                    const colRef = collection(db, 'inventario');
+                    const snapshot = await getDocs(colRef);
+                    const batch = writeBatch(db);
+
+                    snapshot.forEach((doc) => {
+                        batch.delete(doc.ref); // Corregido: Usa `doc.ref` para eliminar la referencia del documento
+                    });
+
+                    await batch.commit(); // Commit del batch para ejecutar todas las eliminaciones
+                    fetchInventario()
+                } catch (error) {
+                    console.error("Error deleting item:", error);
+                }
+            }, title: '¿Eliminar Inventario?'
+
+        });
+
+    };
 
     return (
         <InventarioContext.Provider
@@ -163,7 +189,8 @@ export default function InventarioProvider({ children }) {
                 inventario,
                 addNuevoProducto,
                 editarItem,
-                loading
+                loading,
+                limpiarInventario
             }}
         >
             {children}

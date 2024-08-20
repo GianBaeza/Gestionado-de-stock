@@ -11,7 +11,6 @@ export default function AgregarProducto({ closeModal }) {
     const { addNuevoProducto } = useContext(InventarioContext);
 
     const AddForm = (data) => {
-
         addNuevoProducto(data);
         closeModal();
 

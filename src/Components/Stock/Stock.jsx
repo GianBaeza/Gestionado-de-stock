@@ -57,6 +57,9 @@ export default function Stock({ handleOpenEdit }) {
                                 />
                             </TableCell>
                             <TableCell align="right" sx={estiloHead}>
+                                Fecha
+                            </TableCell>
+                            <TableCell align="right" sx={estiloHead}>
                                 Stock{" "}
                                 <ImportExportIcon
                                     className="ButtonOrden"
@@ -86,10 +89,15 @@ export default function Stock({ handleOpenEdit }) {
                     }}>
                         {inventario.length > 0 ? (
                             inventario.map((inv) => (
-                                <TableRow key={inv.id}>
+
+                                <TableRow TableRow key={inv.id} >
                                     <TableCell component="th" scope="row" sx={estiloInfo}>
                                         {inv.nombre}
                                     </TableCell>
+                                    <TableCell component="th" scope="row" sx={estiloInfo}>
+                                        {String(inv.fecha)}
+                                    </TableCell>
+
                                     <TableCell align="right" sx={estiloInfo}>
                                         {inv.stock}
                                     </TableCell>
@@ -139,6 +147,6 @@ export default function Stock({ handleOpenEdit }) {
                 </Table>
 
             </TableContainer>
-        </section>
+        </section >
     );
 }
