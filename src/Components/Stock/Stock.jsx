@@ -13,52 +13,44 @@ import Loading from "./loaders/Loading";
 import { useContext } from "react";
 import { InventarioContext } from "../Context/StockContext";
 
-//Estilos del inventario
-const estiloHead = { fontSize: 20 };
-const estiloInfo = { fontSize: 15 };
+const estiloHead = { fontSize: 20, fontFamily: 'myFont' };
+const estiloInfo = { fontSize: 15, fontFamily: 'myFont' };
 
 export default function Stock({ handleOpenEdit }) {
     const { ordenarXNombre, ordenarXStock, deleteItem, inventario, loading } =
         useContext(InventarioContext);
 
     return (
-        <section >
+        <section>
             <TableContainer
                 component={Paper}
                 sx={{
-                    width: "80%",
+                    width: "90%",
                     margin: "auto",
-                    height: "500px",
+                    height: "700px",
                     paddingLeft: '5px',
                     paddingRight: '5px',
                     paddingBottom: '5px',
-
-
+                    fontFamily: 'myFont',
 
                 }}
-
-
             >
-                <Table stickyHeader> {/* stickyHeader hace que permanezca visible mientras se hace scroll */}
-                    <TableHead>
+                <Table stickyHeader >
+                    <TableHead sx={{ backgroundColor: '#b3dbc8' }}>
                         <TableRow>
                             <TableCell sx={estiloHead}>
                                 Nombre{" "}
                                 <ImportExportIcon
-                                    className="ButtonOrden"
+                                    className="ButtonOrden "
                                     sx={{
                                         width: 20,
                                         height: 20,
                                         margin: "auto",
-
                                     }}
-
                                     onClick={() => ordenarXNombre()}
                                 />
                             </TableCell>
-                            <TableCell align="right" sx={estiloHead}>
-                                Fecha
-                            </TableCell>
+
                             <TableCell align="right" sx={estiloHead}>
                                 Stock{" "}
                                 <ImportExportIcon
@@ -82,22 +74,21 @@ export default function Stock({ handleOpenEdit }) {
                         </TableRow>
                     </TableHead>
 
-                    <TableBody className="snap-x snap-mandatory" sx={{
-                        borderRadius: "20px",
-                        overflowY: "100px",
-                        overflowX: 'auto',
-                    }}>
+                    <TableBody
+                        sx={{
+                            borderRadius: "20px",
+                            overflowY: "100px",
+                            overflowX: 'auto',
+                            fontFamily: 'myFont',
+                        }}
+                    >
                         {inventario.length > 0 ? (
-                            inventario.map((inv) => (
+                            inventario.map((inv) => {
 
-                                <TableRow TableRow key={inv.id} >
+                                return <TableRow key={inv.id} sx={{ backgroundColor: '#f9fad2', margin: 'auto', flexWrap: 'wrap', justifyContent: 'center' }}>
                                     <TableCell component="th" scope="row" sx={estiloInfo}>
                                         {inv.nombre}
                                     </TableCell>
-                                    <TableCell component="th" scope="row" sx={estiloInfo}>
-                                        {String(inv.fecha)}
-                                    </TableCell>
-
                                     <TableCell align="right" sx={estiloInfo}>
                                         {inv.stock}
                                     </TableCell>
@@ -126,26 +117,24 @@ export default function Stock({ handleOpenEdit }) {
                                             </button>
                                         </div>
                                     </TableCell>
-
                                 </TableRow>
+                            }
 
-                            ))
+
+                            )
                         ) : (
-                            <TableBody olSpan={6} align="center">
-
-                                {loading ? (
-                                    <span>
+                            <TableRow>
+                                <TableCell colSpan={6} align="center">
+                                    {loading ? (
                                         <Loading />
-                                    </span>
-                                ) : (
-                                    <span>Inventario Vacío</span>
-                                )}
-
-                            </TableBody>
+                                    ) : (
+                                        <span>Inventario Vacío</span>
+                                    )}
+                                </TableCell>
+                            </TableRow>
                         )}
                     </TableBody>
                 </Table>
-
             </TableContainer>
         </section >
     );

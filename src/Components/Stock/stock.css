@@ -15,10 +15,15 @@
 .container-table :-webkit-scrollbar {
   overscroll-behavior: none;
 }
-.TableRow :hover {
-  background-color: rgb(88, 88, 88) e;
-}
 
+.MuiPaper-root
+  .MuiPaper-elevation
+  .MuiPaper-rounded
+  .MuiPaper-elevation1
+  .MuiTableContainer-root
+  .css-12otvqf-MuiPaper-root-MuiTableContainer-root {
+  background-color: #b3dbc8;
+}
 .container-table {
   padding: 20px 0;
 }
@@ -28,5 +33,8 @@
 }
 
 .MuiTableRow-root:hover {
-  background-color: #2e2e2e31;
+  background-color: #b3dbc8;
+}
+.MuiTableCell-root {
+  background-color: #fa9f43;
 }

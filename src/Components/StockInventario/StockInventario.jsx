@@ -5,12 +5,13 @@ import SearchIcon from "@mui/icons-material/Search";
 import AgregarProducto from "../AgregarProducto/AgregarProducto";
 import { InventarioContext } from "../Context/StockContext";
 import EditarModal from "../EditarProducto/EditarModal";
-import EliminarAlert from "../EliminarAlert/EliminarAlert";
+
+
 
 export default function StockInventario() {
-    const [openModal, setOpenModal] = useState({
-        agregar: false,
-        edit: false
+    const [modal, setModal] = useState({
+        edit: false,
+        agregar: false
     });
     const [check, setCheck] = useState(false);
     const [editId, setEditId] = useState(null);
@@ -22,20 +23,21 @@ export default function StockInventario() {
     } = useContext(InventarioContext);
 
     const handleOpenAgregarModal = useCallback(() => {
-        setOpenModal(prev => ({ ...prev, agregar: true }))
+        setModal(prev => ({ ...prev, agregar: true }));
     }, []);
 
     const handleCloseAgregarModal = useCallback(() => {
-        setOpenModal(prev => ({ ...prev, agregar: false }));
+        setModal(prev => ({ ...prev, agregar: false }));
+
     }, []);
 
     const handleOpenEditModal = useCallback((id) => {
         setEditId(id);
-        setOpenModal(prev => ({ ...prev, edit: true }));
+        setModal(prev => ({ ...prev, edit: true }));
     }, []);
 
     const handleCloseEditModal = useCallback(() => {
-        setOpenModal(prev => ({ ...prev, edit: false }));
+        setModal(prev => ({ ...prev, edit: false }));
     }, []);
 
     const handleChange = (e) => {
@@ -44,11 +46,10 @@ export default function StockInventario() {
 
     const addEditcion = (data) => {
         if (data) {
-            editarItem(editId, data)
+            editarItem(editId, data);
         }
-        handleCloseEditModal()
-    }
-
+        handleCloseEditModal(); // Cierra el modal después de guardar
+    };
 
     return (
         <div className="container-Stock">
@@ -56,7 +57,7 @@ export default function StockInventario() {
                 <h1 className="h1">Inventario: {`${inventario.length} Productos`}</h1>
                 <section>
                     <button onClick={handleOpenAgregarModal}>Nuevo Articulo</button>
-                    {openModal.agregar && (
+                    {modal.agregar && (
                         <AgregarProducto closeModal={handleCloseAgregarModal} />
                     )}
                     <div>
@@ -76,6 +77,7 @@ export default function StockInventario() {
                                     name="inputCodigo"
                                     checked={check}
                                     onChange={(e) => setCheck(e.target.checked)}
+
                                 />
                             </label>
                             <button onClick={() => limpiarInventario()}>Borrar inventario </button>
@@ -89,9 +91,18 @@ export default function StockInventario() {
                     handleOpenEdit={handleOpenEditModal}
                 />
             </section>
-            {openModal.edit && (
-                <EditarModal handleCloseedit={handleCloseEditModal} addEditcion={addEditcion} />
-            )}
+
+            {
+                modal.edit && (
+                    <EditarModal
+                        handleCloseedit={handleCloseEditModal}
+                        addEditcion={addEditcion}
+
+
+                    />
+                )
+            }
+
         </div>
     );
 }

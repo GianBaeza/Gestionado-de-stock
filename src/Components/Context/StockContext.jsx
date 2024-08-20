@@ -30,6 +30,7 @@ export default function InventarioProvider({ children }) {
             const inventarioRef = collection(db, 'inventario');
             const resp = await getDocs(inventarioRef);
             const data = resp.docs.map((item) => ({ ...item.data(), id: item.id }));
+
             setCloneInventario(data)
             setInventario(data);
 

@@ -1,55 +1,62 @@
-import { useForm } from "react-hook-form"
+import { useForm } from "react-hook-form";
 import CloseIcon from "@mui/icons-material/Close";
-import "../EditarProducto/editarModal.css"
-
-
+import "../EditarProducto/editarModal.css";
+import 'animate.css';
 export default function EditarModal({ handleCloseedit, addEditcion }) {
-
-    const { register, handleSubmit } = useForm()
-
+    const { register, handleSubmit } = useForm();
 
     return (
         <>
-            <main className="container-ModalEdit">
+            <main className={`container-ModalEdit`}>
                 <div className="form">
-                    <form action="post" onSubmit={handleSubmit(addEditcion)}>
-                        <button onClick={handleCloseedit} className="close-Modal"><CloseIcon /></button>
+                    <form onSubmit={handleSubmit(addEditcion)}>
+                        <button type="button" onClick={handleCloseedit} className="close-Modal">
+                            <CloseIcon />
+                        </button>
 
                         <h2>Editar Producto</h2>
 
                         <input
                             type="text"
                             {...register("nombre")}
-                            placeholder="Nombre : correa , pelota..."
+                            placeholder="Nombre: correa, pelota..."
                         />
 
-                        <input type="number" {...register("stock")} placeholder="stock..." />
+                        <input
+                            type="number"
+                            {...register("stock")}
+                            placeholder="Stock..."
+                        />
 
-                        <input type="text" {...register("codigo")} placeholder="codigo..." />
-                        <div className="contianer-price">
+                        <input
+                            type="text"
+                            {...register("codigo")}
+                            placeholder="Código..."
+                        />
 
+                        <div className="container-price">
                             <input
                                 type="number"
                                 {...register("lista")}
                                 placeholder="$ Lista"
                                 className="price-editar"
-
                             />
                             <input
                                 type="number"
                                 {...register("venta")}
                                 placeholder="$ Venta"
                                 className="price-editar"
-
                             />
-
                         </div>
-                        <input type="submit" value="Guardar" className="btn-agregar" />
+
+                        <input
+                            type="submit"
+                            value="Guardar"
+                            className="btn-agregar"
+                        />
                     </form>
                 </div>
             </main>
-
         </>
-
-    )
+    );
 }

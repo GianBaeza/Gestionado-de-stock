@@ -1,6 +1,6 @@
 @font-face {
   font-family: myFont;
-  src: url(./assets//Fonts/janda_manatee/JandaManateeSolid.ttf);
+  src: url(../public//Font/Inter.ttc);
 }
 
 h1,
@@ -8,7 +8,7 @@ h2,
 h3,
 p,
 button,
-::placeholder {
+::placeholder,
+body {
   font-family: myFont;
-  font-weight: 100;
 }
