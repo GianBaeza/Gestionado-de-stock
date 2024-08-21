@@ -45,6 +45,7 @@ export default function StockInventario() {
     };
 
     const addEditcion = (data) => {
+        console.log(data)
         if (data) {
             editarItem(editId, data);
         }
@@ -52,7 +53,7 @@ export default function StockInventario() {
     };
 
     return (
-        <div className="container-Stock">
+        <div className="container-Stock dark:bg-neutral-900">
             <header className="main-Stock">
                 <h1 className="h1">Inventario: {`${inventario.length} Productos`}</h1>
                 <section>
@@ -86,10 +87,13 @@ export default function StockInventario() {
                 </section>
             </header>
             <section className="container-table">
+
+
                 <Stock
+                    id='Render Stock'
                     inventario={inventario}
-                    handleOpenEdit={handleOpenEditModal}
-                />
+                    handleOpenEdit={handleOpenEditModal} />
+
             </section>
 
             {

@@ -43,23 +43,17 @@ export default function InventarioProvider({ children }) {
 
     useEffect(() => {
         fetchInventario()
+
     }, []);
 
 
     // Agregar nuevo producto
     const addNuevoProducto = async (data) => {
-        const fechaDate = new Date(data.fecha)
-        const anio = fechaDate.getFullYear();
-        const mes = fechaDate.getMonth() + 1;
-        const dia = fechaDate.getDate();
-        console.log(dia, mes, anio)
-
-
 
         const nuevoProducto = {
             id: Date.now(),
             nombre: data.nombre,
-            fecha: new Date(`${anio} / ${mes} / ${dia}`),
+            fecha: data.fecha,
             stock: Number(data.stock),
             codigo: data.codigo.toUpperCase(),
             lista: parseFloat(data.lista),

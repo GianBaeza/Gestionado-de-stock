@@ -12,29 +12,3 @@
   padding: 5px;
   color: rgb(89, 90, 92);
 }
-.container-table :-webkit-scrollbar {
-  overscroll-behavior: none;
-}
-
-.MuiPaper-root
-  .MuiPaper-elevation
-  .MuiPaper-rounded
-  .MuiPaper-elevation1
-  .MuiTableContainer-root
-  .css-12otvqf-MuiPaper-root-MuiTableContainer-root {
-  background-color: #b3dbc8;
-}
-.container-table {
-  padding: 20px 0;
-}
-
-.MuiTableRow-root {
-  transition: background-color 0.3s ease;
-}
-
-.MuiTableRow-root:hover {
-  background-color: #b3dbc8;
-}
-.MuiTableCell-root {
-  background-color: #fa9f43;
-}

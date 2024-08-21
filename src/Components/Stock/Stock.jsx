@@ -13,6 +13,7 @@ import Loading from "./loaders/Loading";
 import { useContext } from "react";
 import { InventarioContext } from "../Context/StockContext";
 
+
 const estiloHead = { fontSize: 20, fontFamily: 'myFont' };
 const estiloInfo = { fontSize: 15, fontFamily: 'myFont' };
 
@@ -20,23 +21,26 @@ export default function Stock({ handleOpenEdit }) {
     const { ordenarXNombre, ordenarXStock, deleteItem, inventario, loading } =
         useContext(InventarioContext);
 
+
+
+
     return (
         <section>
             <TableContainer
                 component={Paper}
                 sx={{
-                    width: "90%",
+                    width: "80%",
                     margin: "auto",
                     height: "700px",
                     paddingLeft: '5px',
                     paddingRight: '5px',
                     paddingBottom: '5px',
                     fontFamily: 'myFont',
-
                 }}
+
             >
                 <Table stickyHeader >
-                    <TableHead sx={{ backgroundColor: '#b3dbc8' }}>
+                    <TableHead sx={{ height: '10px' }}>
                         <TableRow>
                             <TableCell sx={estiloHead}>
                                 Nombre{" "}
@@ -58,6 +62,10 @@ export default function Stock({ handleOpenEdit }) {
                                     sx={{ width: 20, height: 20, margin: "auto" }}
                                     onClick={() => ordenarXStock()}
                                 />
+
+                            </TableCell>
+                            <TableCell align="right" sx={estiloHead}>
+                                Fecha
                             </TableCell>
                             <TableCell align="right" sx={estiloHead}>
                                 Código
@@ -84,13 +92,25 @@ export default function Stock({ handleOpenEdit }) {
                     >
                         {inventario.length > 0 ? (
                             inventario.map((inv) => {
+                                const fechaDate = new Date(inv.fecha)
+                                const anio = fechaDate.getFullYear();
+                                const mes = fechaDate.getMonth() + 1;
+                                const dia = fechaDate.getDate() + 1;
 
-                                return <TableRow key={inv.id} sx={{ backgroundColor: '#f9fad2', margin: 'auto', flexWrap: 'wrap', justifyContent: 'center' }}>
+                                return <TableRow key={inv.id} sx={{
+                                    margin: 'auto', flexWrap: 'wrap', justifyContent: 'center', width: 100, bgcolor: '#feffe4',
+                                    '&:hover': {
+                                        bgcolor: '#e5f1cc',
+                                    },
+                                }}>
                                     <TableCell component="th" scope="row" sx={estiloInfo}>
                                         {inv.nombre}
                                     </TableCell>
                                     <TableCell align="right" sx={estiloInfo}>
                                         {inv.stock}
+                                    </TableCell>
+                                    <TableCell align="right" sx={estiloInfo}>
+                                        {JSON.stringify(`${dia}/${mes}/${anio}`).slice(1, -1)}
                                     </TableCell>
                                     <TableCell align="right" sx={estiloInfo}>
                                         {inv.codigo}
