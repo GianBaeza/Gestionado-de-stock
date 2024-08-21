@@ -5,7 +5,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import AgregarProducto from "../AgregarProducto/AgregarProducto";
 import { InventarioContext } from "../Context/StockContext";
 import EditarModal from "../EditarProducto/EditarModal";
-
+import 'animate.css';
 
 
 export default function StockInventario() {
