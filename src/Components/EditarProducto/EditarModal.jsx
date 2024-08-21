@@ -2,12 +2,12 @@ import { useForm } from "react-hook-form";
 import CloseIcon from "@mui/icons-material/Close";
 import "../EditarProducto/editarModal.css";
 import 'animate.css';
-export default function EditarModal({ handleCloseedit, addEditcion }) {
+export default function EditarModal({ handleCloseedit, addEditcion, estiloAnimacion }) {
     const { register, handleSubmit } = useForm();
 
     return (
         <>
-            <main className={`container-ModalEdit`}>
+            <main className={`container-ModalEdit ${estiloAnimacion}`} >
                 <div className="form">
                     <form onSubmit={handleSubmit(addEditcion)}>
                         <button type="button" onClick={handleCloseedit} className="close-Modal">

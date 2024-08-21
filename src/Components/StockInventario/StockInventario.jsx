@@ -97,6 +97,7 @@ export default function StockInventario() {
                     <EditarModal
                         handleCloseedit={handleCloseEditModal}
                         addEditcion={addEditcion}
+                        estiloAnimacion={modal.edit ? 'animate__animated animate__backInRight' : 'animate__animated animate__backOutRight'}
 
 
                     />
