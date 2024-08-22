@@ -23,19 +23,20 @@ export default function Stock({ handleOpenEdit }) {
 
 
 
-
     return (
         <section>
             <TableContainer
                 component={Paper}
+
                 sx={{
-                    width: "80%",
+                    width: "80% ",
                     margin: "auto",
                     height: "700px",
                     paddingLeft: '5px',
                     paddingRight: '5px',
                     paddingBottom: '5px',
                     fontFamily: 'myFont',
+
                 }}
 
             >
@@ -155,7 +156,7 @@ export default function Stock({ handleOpenEdit }) {
                         )}
                     </TableBody>
                 </Table>
-            </TableContainer>
+            </TableContainer >
         </section >
     );
 }

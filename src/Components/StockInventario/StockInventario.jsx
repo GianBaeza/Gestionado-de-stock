@@ -1,12 +1,12 @@
-import { useCallback, useContext, useState } from "react";
+import { useContext, useState, useCallback } from "react";
 import Stock from "../Stock/Stock";
-import "./stockInventario.css";
-import SearchIcon from "@mui/icons-material/Search";
 import AgregarProducto from "../AgregarProducto/AgregarProducto";
 import { InventarioContext } from "../Context/StockContext";
 import EditarModal from "../EditarProducto/EditarModal";
 import 'animate.css';
-
+import SearchIcon from "@mui/icons-material/Search";
+import { ThemeContextCustom } from "../Context/ThemeContext";
+import ThemeSwitch from "./ButtonTheme/ThemeButton";
 
 export default function StockInventario() {
     const [modal, setModal] = useState({
@@ -15,12 +15,8 @@ export default function StockInventario() {
     });
     const [check, setCheck] = useState(false);
     const [editId, setEditId] = useState(null);
-    const {
-        filtrarInventario,
-        inventario,
-        editarItem,
-        limpiarInventario
-    } = useContext(InventarioContext);
+    const { filtrarInventario, inventario, editarItem, limpiarInventario } = useContext(InventarioContext);
+    const { handleTheme, theme } = useContext(ThemeContextCustom)
 
     const handleOpenAgregarModal = useCallback(() => {
         setModal(prev => ({ ...prev, agregar: true }));
@@ -28,7 +24,6 @@ export default function StockInventario() {
 
     const handleCloseAgregarModal = useCallback(() => {
         setModal(prev => ({ ...prev, agregar: false }));
-
     }, []);
 
     const handleOpenEditModal = useCallback((id) => {
@@ -45,69 +40,71 @@ export default function StockInventario() {
     };
 
     const addEditcion = (data) => {
-        console.log(data)
         if (data) {
             editarItem(editId, data);
         }
-        handleCloseEditModal(); // Cierra el modal después de guardar
+        handleCloseEditModal();
     };
 
+    const colorFont = theme === 'dark' ? 'text-stone-300' : 'text-stone-800';
+    const searchColor = theme === 'dark' ? 'bg-gray-200' : 'bg-gray-200 bg-slate-500';
     return (
-        <div className="container-Stock dark:bg-neutral-900">
-            <header className="main-Stock">
-                <h1 className="h1">Inventario: {`${inventario.length} Productos`}</h1>
-                <section>
-                    <button onClick={handleOpenAgregarModal}>Nuevo Articulo</button>
+        <div className={`container-Stock ${theme === 'dark' ? 'dark:bg-slate-800' : ''}`}>
+            <header className="main-Stock flex gap-4 p-5 m-0 w-full justify-center h-52">
+
+                <section className="w-4/5  flex gap-10 p-0 justify-end items-end ">
                     {modal.agregar && (
                         <AgregarProducto closeModal={handleCloseAgregarModal} />
                     )}
-                    <div>
-                        <div className="input-container">
-                            <SearchIcon className="search-icon" />
+                    <div className="p-10 flex  py-0  justify-start  gap-10 items-center order-solid border-2 border-stone-400 h-20 rounded-lg"  >
+
+                        <label htmlFor="search">
                             <input
                                 type="search"
                                 name="search"
                                 id="buscarItem"
                                 placeholder="Buscar Articulo.."
                                 onChange={handleChange}
+                                className={`p-2 text-stone-800 pl-2 border-none rounded-lg bg-gray-10 shadow-inner ${searchColor}`}
                             />
-                            <label htmlFor="inputCodigo">
-                                Por codigo
-                                <input
-                                    type="checkbox"
-                                    name="inputCodigo"
-                                    checked={check}
-                                    onChange={(e) => setCheck(e.target.checked)}
 
-                                />
-                            </label>
-                            <button onClick={() => limpiarInventario()}>Borrar inventario </button>
-                        </div>
+                            <SearchIcon className="relative right-8  text-stone-300" />
+                        </label>
+                        <label htmlFor="inputCodigo" className={` flex gap-1 ${colorFont}`}>
+                            <input
+                                type="checkbox"
+                                name="inputCodigo"
+                                checked={check}
+                                onChange={(e) => setCheck(e.target.checked)}
+                            />
+                            Por código
+                        </label>
+                        <ul className="flex gap-10">
+                            <li>
+                                <a onClick={handleOpenAgregarModal} className={`cursor-pointer ${colorFont}`}>Nuevo Articulo</a>
+                            </li>
+                            <li>
+                                <a onClick={() => limpiarInventario()} className={`cursor-pointer ${colorFont}`}>Borrar inventario </a>
+                            </li>
+                            <li>
+                                <ThemeSwitch handleTheme={handleTheme} theme={theme} />
+                            </li>
+                        </ul>
                     </div>
+
+
                 </section>
             </header>
             <section className="container-table">
-
-
-                <Stock
-                    id='Render Stock'
-                    inventario={inventario}
-                    handleOpenEdit={handleOpenEditModal} />
-
+                <Stock id="Render Stock" inventario={inventario} handleOpenEdit={handleOpenEditModal} />
             </section>
-
-            {
-                modal.edit && (
-                    <EditarModal
-                        handleCloseedit={handleCloseEditModal}
-                        addEditcion={addEditcion}
-                        estiloAnimacion={modal.edit ? 'animate__animated animate__backInRight' : 'animate__animated animate__backOutRight'}
-
-
-                    />
-                )
-            }
-
+            {modal.edit && (
+                <EditarModal
+                    handleCloseedit={handleCloseEditModal}
+                    addEditcion={addEditcion}
+                    estiloAnimacion={modal.edit ? 'animate__animated animate__backInRight' : 'animate__animated animate__backOutRight'}
+                />
+            )}
         </div>
     );
 }
