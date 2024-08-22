@@ -49,10 +49,11 @@ export default function StockInventario() {
     const colorFont = theme === 'dark' ? 'text-stone-300' : 'text-stone-800';
     const searchColor = theme === 'dark' ? 'bg-gray-200' : 'bg-gray-200 bg-slate-500';
     return (
-        <div className={`container-Stock ${theme === 'dark' ? 'dark:bg-slate-800' : ''}`}>
+        <div className={`container-Stock ${theme === 'dark' ? 'dark:bg-slate-800' : ''}  h-svh w-full`}>
             <header className="main-Stock flex gap-4 p-5 m-0 w-full justify-center h-52">
 
-                <section className="w-4/5  flex gap-10 p-0 justify-end items-end ">
+                <section className="w-5/5  flex gap-20 p-0 justify-end items-end ">
+                    <h1 className={`text-8xl ${colorFont}`}>InvenStock</h1>
                     {modal.agregar && (
                         <AgregarProducto closeModal={handleCloseAgregarModal} />
                     )}
