@@ -61,27 +61,33 @@ export default function StockInventario() {
                         <AgregarProducto closeModal={handleCloseAgregarModal} />
                     )}
                     <div className={`p-10 flex py-0 justify-start gap-10 items-center border-2 border-stone-400 h-20 rounded-lg ${theme === 'dark' ? 'dark:bg-slate-700' : 'bg-gray-100'}`}>
-                        <label htmlFor="search" className="overflow-hidden">
-                            <input
-                                type="search"
-                                name="search"
-                                id="buscarItem"
-                                placeholder="Buscar Articulo.."
-                                onChange={handleChange}
-                                className={`p-2 text-stone-900 pl-2 border-none rounded-lg shadow-inner ${searchColor}`}
-                            />
-                            <SearchIcon className={`relative right-8 ${colorFont}`} />
-                        </label>
-                        <label htmlFor="inputCodigo" className={`flex gap-1 ${colorFont}`}>
-                            <input
-                                type="checkbox"
-                                name="inputCodigo"
-                                checked={check}
-                                onChange={(e) => setCheck(e.target.checked)}
-                            />
-                            Por código
-                        </label>
-                        <ul className="flex gap-10">
+
+
+                        <ul className="flex gap-10 items-center">
+                            <li>
+                                <label htmlFor="search" className="overflow-hidden">
+                                    <input
+                                        type="search"
+                                        name="search"
+                                        id="buscarItem"
+                                        placeholder="Buscar Articulo.."
+                                        onChange={handleChange}
+                                        className={`p-2 text-stone-900 pl-2 border-none rounded-lg shadow-inner ${searchColor}`}
+                                    />
+                                    <SearchIcon className={`relative right-8 ${colorFont}`} />
+                                </label>
+                            </li>
+                            <li>
+                                <label htmlFor="inputCodigo" className={`flex gap-1 ${colorFont} cursor-pointer`}>
+                                    <input
+                                        type="checkbox"
+                                        name="inputCodigo"
+                                        checked={check}
+                                        onChange={(e) => setCheck(e.target.checked)}
+                                    />
+                                    Por código
+                                </label>
+                            </li>
                             <li>
                                 <a onClick={handleOpenAgregarModal} className={`cursor-pointer ${colorFont}`}>
                                     Nuevo Articulo
