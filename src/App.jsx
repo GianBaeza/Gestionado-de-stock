@@ -12,10 +12,7 @@ function App() {
     return (
         <ThemeContextProvider>
             <InventarioProvider>
-
-
                 <StockInventario />
-
 
             </InventarioProvider>
         </ThemeContextProvider>

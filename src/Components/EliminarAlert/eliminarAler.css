@@ -1,0 +1,185 @@
+/* alertStyles.css */
+
+/* Variables del tema oscuro */
+:root {
+  --popup-bg-dark: #212b2f;
+  --popup-text-dark: #f1f5f9;
+  --popup-border-dark: #334155;
+  --icon-color-dark: #ff0101;
+  --confirm-btn-bg-dark: #29364b;
+  --confirm-btn-hover-dark: #08bd17a1;
+  --cancel-btn-bg-dark: #78909c;
+  --cancel-btn-hover-dark: #ff0000;
+  --footer-text-dark: #94a3b8;
+}
+
+/* Variables del tema claro (por defecto) */
+:root {
+  --popup-bg-light: #ffffff;
+  --popup-text-light: #000000;
+  --popup-border-light: #dcdcdc;
+  --icon-color-light: #ff0000;
+  --confirm-btn-bg-light: #78909c;
+  --confirm-btn-hover-light: #08bd17a1;
+  --cancel-btn-bg-light: #a0a8ac;
+  --cancel-btn-hover-light: #c9302c;
+  --footer-text-light: #000000;
+}
+
+/* Estilos comunes */
+.custom-popup,
+.dark-popup {
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.custom-title,
+.dark-title {
+  font-family: "Arial", sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.custom-confirm-button,
+.dark-confirm-button {
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.custom-cancel-button,
+.dark-cancel-button {
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.custom-actions,
+.dark-actions {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 20px;
+}
+
+.custom-footer,
+.dark-footer {
+  font-size: 12px;
+  text-align: center;
+  padding-top: 10px;
+}
+
+.custom-timer-progress-bar,
+.dark-timer-progress-bar {
+  height: 5px;
+  border-radius: 2px;
+}
+
+/* Tema oscuro */
+.dark-popup {
+  background-color: var(--popup-bg-dark);
+  color: var(--popup-text-dark);
+}
+
+.dark-header {
+  border-bottom: 2px solid var(--popup-border-dark);
+}
+
+.dark-title {
+  color: var(--popup-text-dark);
+}
+
+.dark-close-button {
+  color: var(--popup-text-dark);
+}
+
+.dark-close-button:hover {
+  color: #94a3b8;
+}
+
+.dark-icon {
+  color: var(--icon-color-dark);
+}
+
+.dark-html-container {
+  font-size: 16px;
+  color: #e2e8f0;
+}
+
+.dark-confirm-button {
+  background-color: var(--confirm-btn-bg-dark);
+}
+
+.dark-confirm-button:hover {
+  background-color: var(--confirm-btn-hover-dark);
+}
+
+.dark-cancel-button {
+  background-color: var(--cancel-btn-bg-dark);
+}
+
+.dark-cancel-button:hover {
+  background-color: var(--cancel-btn-hover-dark);
+}
+
+.dark-actions {
+  color: var(--footer-text-dark);
+}
+
+.dark-footer {
+  color: var(--footer-text-dark);
+}
+
+.dark-timer-progress-bar {
+  background-color: var(--timer-progress-dark);
+}
+
+/* Tema claro */
+.custom-popup {
+  background-color: var(--popup-bg-light);
+  color: var(--popup-text-light);
+}
+
+.custom-title {
+  color: var(--popup-text-light);
+}
+
+.custom-confirm-button {
+  background-color: var(--confirm-btn-bg-light);
+  color: #000000d3;
+}
+
+.custom-confirm-button:hover {
+  background-color: var(--confirm-btn-hover-light);
+}
+
+.custom-cancel-button {
+  background-color: var(--cancel-btn-bg-light);
+  color: #000000d3;
+}
+
+.custom-cancel-button:hover {
+  background-color: var(--cancel-btn-hover-light);
+}
+
+.custom-icon {
+  color: var(--icon-color-light);
+}
+
+.custom-actions {
+  color: var(--footer-text-light);
+}
+
+.custom-footer {
+  color: var(--footer-text-light);
+}
+
+.custom-timer-progress-bar {
+  background-color: var(--timer-progress-light);
+}

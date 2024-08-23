@@ -1,42 +1,10 @@
 .formCssDark {
-  -webkit-box-shadow: -2px -1px 8px 4px rgba(255, 255, 255, 1);
-  -moz-box-shadow: -2px -1px 8px 4px rgba(255, 255, 255, 1);
-  box-shadow: -2px -1px 8px 4px rgba(255, 255, 255, 1);
+  -webkit-box-shadow: -2px -1px 8px 4px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -2px -1px 8px 4px rgba(0, 0, 0, 0.75);
+  box-shadow: -2px -1px 8px 4px rgba(0, 0, 0, 0.75);
 }
 .formCssLight {
   -webkit-box-shadow: -2px -1px 8px 4px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: -2px -1px 8px 4px rgba(0, 0, 0, 0.75);
   box-shadow: -2px -1px 8px 4px rgba(0, 0, 0, 0.75);
-}
-
-.form input {
-  margin-bottom: 10px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-}
-
-.btn-agregar {
-  background-color: #4c4d4e; /* Color del botón */
-  color: #fff;
-  width: 100px;
-  cursor: pointer;
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  margin-top: 10px;
-}
-
-.btn-agregar:hover {
-  background-color: #323435a1; /* Color en hover */
-}
-
-.contianer-price {
-  display: flex;
-  gap: 10px;
-  width: 40%;
-  justify-content: center;
-}
-
-.price-editar {
-  width: 80px; /* Ancho de los campos de precio */
 }

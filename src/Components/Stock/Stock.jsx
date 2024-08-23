@@ -5,158 +5,115 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import "./stock.css";
 import ImportExportIcon from "@mui/icons-material/ImportExport";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import Loading from "./loaders/Loading";
 import { useContext } from "react";
 import { InventarioContext } from "../Context/StockContext";
+import useStockStyles from "../customHooksCss/StockCss/useStockCss";
 
-
-const estiloHead = { fontSize: 20, fontFamily: 'myFont' };
-const estiloInfo = { fontSize: 15, fontFamily: 'myFont' };
 
 export default function Stock({ handleOpenEdit }) {
-    const { ordenarXNombre, ordenarXStock, deleteItem, inventario, loading } =
-        useContext(InventarioContext);
+    const { ordenarXNombre, ordenarXStock, deleteItem, inventario, loading } = useContext(InventarioContext);
 
-
+    const styles = useStockStyles(); // hook para obtener los estilos
 
     return (
-        <section>
-            <TableContainer
-                component={Paper}
+        <TableContainer component={Paper} sx={styles.tableContainer} className="custom-scrollbar">
+            <Table stickyHeader>
+                <TableHead sx={{ height: '10px' }}>
+                    <TableRow>
+                        <TableCell sx={styles.estiloHead}>
+                            Nombre del Producto{" "}
+                            <ImportExportIcon
+                                className="ButtonOrden"
+                                sx={styles.estilosIcons}
+                                onClick={() => ordenarXNombre()}
+                            />
+                        </TableCell>
+                        <TableCell align="right" sx={styles.estiloHead}>
+                            Cantidad en Stock{" "}
+                            <ImportExportIcon
+                                className="ButtonOrden"
+                                sx={styles.estilosIcons}
+                                onClick={() => ordenarXStock()}
+                            />
+                        </TableCell>
+                        <TableCell align="right" sx={styles.estiloHead}>
+                            Fecha de Registro
+                        </TableCell>
+                        <TableCell align="right" sx={styles.estiloHead}>
+                            Código del Producto
+                        </TableCell>
+                        <TableCell align="right" sx={styles.estiloHead}>
+                            Precio de Lista
+                        </TableCell>
+                        <TableCell align="right" sx={styles.estiloHead}>
+                            Precio de Venta
+                        </TableCell>
+                        <TableCell align="right" sx={styles.estiloHead}>
+                            Acciones
+                        </TableCell>
+                    </TableRow>
+                </TableHead>
 
-                sx={{
-                    width: "80% ",
-                    margin: "auto",
-                    height: "700px",
-                    paddingLeft: '5px',
-                    paddingRight: '5px',
-                    paddingBottom: '5px',
-                    fontFamily: 'myFont',
+                <TableBody sx={styles.tableBody}>
+                    {inventario.length > 0 ? (
+                        inventario.map((inv) => {
+                            const fechaDate = new Date(inv.fecha);
+                            const anio = fechaDate.getFullYear();
+                            const mes = fechaDate.getMonth() + 1;
+                            const dia = fechaDate.getDate() + 1;
 
-                }}
-
-            >
-                <Table stickyHeader >
-                    <TableHead sx={{ height: '10px' }}>
-                        <TableRow>
-                            <TableCell sx={estiloHead}>
-                                Nombre{" "}
-                                <ImportExportIcon
-                                    className="ButtonOrden "
-                                    sx={{
-                                        width: 20,
-                                        height: 20,
-                                        margin: "auto",
-                                    }}
-                                    onClick={() => ordenarXNombre()}
-                                />
-                            </TableCell>
-
-                            <TableCell align="right" sx={estiloHead}>
-                                Stock{" "}
-                                <ImportExportIcon
-                                    className="ButtonOrden"
-                                    sx={{ width: 20, height: 20, margin: "auto" }}
-                                    onClick={() => ordenarXStock()}
-                                />
-
-                            </TableCell>
-                            <TableCell align="right" sx={estiloHead}>
-                                Fecha
-                            </TableCell>
-                            <TableCell align="right" sx={estiloHead}>
-                                Código
-                            </TableCell>
-                            <TableCell align="right" sx={estiloHead}>
-                                $ Lista
-                            </TableCell>
-                            <TableCell align="right" sx={estiloHead}>
-                                $ Venta
-                            </TableCell>
-                            <TableCell align="right" sx={estiloHead}>
-                                Acción
-                            </TableCell>
-                        </TableRow>
-                    </TableHead>
-
-                    <TableBody
-                        sx={{
-                            borderRadius: "20px",
-                            overflowY: "100px",
-                            overflowX: 'auto',
-                            fontFamily: 'myFont',
-                        }}
-                    >
-                        {inventario.length > 0 ? (
-                            inventario.map((inv) => {
-                                const fechaDate = new Date(inv.fecha)
-                                const anio = fechaDate.getFullYear();
-                                const mes = fechaDate.getMonth() + 1;
-                                const dia = fechaDate.getDate() + 1;
-
-                                return <TableRow key={inv.id} sx={{
-                                    margin: 'auto', flexWrap: 'wrap', justifyContent: 'center', width: 100, bgcolor: '#feffe4',
-                                    '&:hover': {
-                                        bgcolor: '#e5f1cc',
-                                    },
-                                }}>
-                                    <TableCell component="th" scope="row" sx={estiloInfo}>
+                            return (
+                                <TableRow key={inv.id} sx={styles.estiloRow}>
+                                    <TableCell component="th" scope="row" sx={styles.estiloInfo}>
                                         {inv.nombre}
                                     </TableCell>
-                                    <TableCell align="right" sx={estiloInfo}>
+                                    <TableCell align="right" sx={styles.estiloInfo}>
                                         {inv.stock}
                                     </TableCell>
-                                    <TableCell align="right" sx={estiloInfo}>
-                                        {JSON.stringify(`${dia}/${mes}/${anio}`).slice(1, -1)}
+                                    <TableCell align="right" sx={styles.estiloInfo}>
+                                        {`${dia}/${mes}/${anio}`}
                                     </TableCell>
-                                    <TableCell align="right" sx={estiloInfo}>
+                                    <TableCell align="right" sx={styles.estiloInfo}>
                                         {inv.codigo}
                                     </TableCell>
-                                    <TableCell align="right" sx={estiloInfo}>
+                                    <TableCell align="right" sx={styles.estiloInfo}>
                                         $ {new Intl.NumberFormat("es-AR").format(inv.lista)}
                                     </TableCell>
-                                    <TableCell align="right" sx={estiloInfo}>
+                                    <TableCell align="right" sx={styles.estiloInfo}>
                                         $ {new Intl.NumberFormat("es-AR").format(inv.venta)}
                                     </TableCell>
-                                    <TableCell align="right">
-                                        <div className="button-container">
-                                            <button
-                                                className="acciones"
-                                                onClick={() => handleOpenEdit(inv.id)}
-                                            >
-                                                <BorderColorIcon />
+                                    <TableCell align="right" sx={styles.estiloInfo}>
+                                        <div className="flex  gap-3 justify-end">
+                                            <button onClick={() => handleOpenEdit(inv.id)}>
+                                                <BorderColorIcon sx={{ color: styles.estilosIcons.color }} />
                                             </button>
-                                            <button
-                                                className="acciones"
-                                                onClick={() => deleteItem(inv.id)}
-                                            >
-                                                <DeleteForeverIcon />
+                                            <button onClick={() => deleteItem(inv.id)}>
+                                                <DeleteForeverIcon sx={{ color: styles.estilosIcons.color }} />
                                             </button>
                                         </div>
                                     </TableCell>
                                 </TableRow>
-                            }
+                            );
+                        })
+                    ) : (
+                        <TableRow>
+                            <TableCell colSpan={7} align="center">
+                                {loading ? (
+                                    <Loading />
+                                ) : (
+                                    <span style={{ color: styles.estiloInfo.color }}>Inventario Vacío</span>
+                                )}
+                            </TableCell>
+                        </TableRow>
+                    )}
 
 
-                            )
-                        ) : (
-                            <TableRow>
-                                <TableCell colSpan={6} align="center">
-                                    {loading ? (
-                                        <Loading />
-                                    ) : (
-                                        <span>Inventario Vacío</span>
-                                    )}
-                                </TableCell>
-                            </TableRow>
-                        )}
-                    </TableBody>
-                </Table>
-            </TableContainer >
-        </section >
+                </TableBody>
+            </Table>
+        </TableContainer >
     );
 }

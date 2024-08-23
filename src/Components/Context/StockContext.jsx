@@ -1,8 +1,9 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import EliminarAlert from "../EliminarAlert/EliminarAlert";
 import useOrdenProducts from "../Hooks/useOrdenProducts";
 import { collection, getDocs, doc, updateDoc, addDoc, deleteDoc, writeBatch } from "firebase/firestore";
 import db from "../../Services/config";
+import { ThemeContextCustom } from "./ThemeContext";
 
 
 export const InventarioContext = createContext();
@@ -20,6 +21,7 @@ export default function InventarioProvider({ children }) {
     const [valueSearch, setValueSearch] = useState("");
     const [loading, setLoading] = useState(false);
     const ordenProducts = useOrdenProducts()
+    const { theme } = useContext(ThemeContextCustom)
 
 
 
@@ -84,7 +86,7 @@ export default function InventarioProvider({ children }) {
                 } catch (error) {
                     console.error("Error deleting item:", error);
                 }
-            }, title: '¿Eliminar ítem?',
+            }, title: '¿Eliminar ítem?', theme
         });
     };
 
