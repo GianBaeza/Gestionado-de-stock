@@ -55,7 +55,8 @@ const useStockStyles = () => {
             fontFamily: 'myFont',
 
 
-        }
+        },
+
     };
 }
 export default useStockStyles;

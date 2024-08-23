@@ -9,6 +9,7 @@ h3,
 p,
 button,
 ::placeholder,
-body {
+body,
+span {
   font-family: myFont;
 }

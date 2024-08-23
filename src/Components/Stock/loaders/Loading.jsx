@@ -1,8 +1,16 @@
-import "../loaders/loading.css"
+import 'ldrs/ring'
+import { quantum } from 'ldrs'
 export default function Loading({ title }) {
-    return (
-        <div className='loader'>
-            {title ? title : ''}
-        </div>
-    )
+    quantum.register()
+    return <>
+        <l-quantum
+            size="45"
+            speed="1.75"
+            color="black"
+        ></l-quantum>
+
+    </>
+
 }
+
+

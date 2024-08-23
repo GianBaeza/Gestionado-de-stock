@@ -13,10 +13,8 @@ import { useContext } from "react";
 import { InventarioContext } from "../Context/StockContext";
 import useStockStyles from "../customHooksCss/StockCss/useStockCss";
 
-
 export default function Stock({ handleOpenEdit }) {
     const { ordenarXNombre, ordenarXStock, deleteItem, inventario, loading } = useContext(InventarioContext);
-
     const styles = useStockStyles(); // hook para obtener los estilos
 
     return (
@@ -87,7 +85,7 @@ export default function Stock({ handleOpenEdit }) {
                                         $ {new Intl.NumberFormat("es-AR").format(inv.venta)}
                                     </TableCell>
                                     <TableCell align="right" sx={styles.estiloInfo}>
-                                        <div className="flex  gap-3 justify-end">
+                                        <div className="flex gap-3 justify-end">
                                             <button onClick={() => handleOpenEdit(inv.id)}>
                                                 <BorderColorIcon sx={{ color: styles.estilosIcons.color }} />
                                             </button>
@@ -101,19 +99,18 @@ export default function Stock({ handleOpenEdit }) {
                         })
                     ) : (
                         <TableRow>
-                            <TableCell colSpan={7} align="center">
+                            <TableCell colSpan={7} align="center" sx={{ height: '100%', margin: 'auto', marginTop: '150px', marginLeft: '40%', position: 'absolute', }} >
                                 {loading ? (
-                                    <Loading />
+                                    <span className="flex flex-col items-center gap-3 font-medium text-l"><Loading /> Cargando...</span>
                                 ) : (
                                     <span style={{ color: styles.estiloInfo.color }}>Inventario Vacío</span>
                                 )}
                             </TableCell>
                         </TableRow>
                     )}
-
-
                 </TableBody>
             </Table>
-        </TableContainer >
+        </TableContainer>
     );
 }
+

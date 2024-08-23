@@ -17,6 +17,7 @@
     "@sweetalert2/themes": "^5.0.18",
     "animate.css": "^4.1.1",
     "firebase": "^10.12.5",
+    "ldrs": "^1.0.2",
     "prop-types": "^15.8.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
