@@ -1,47 +1,15 @@
-/* EditarModal.css */
-
-.container-ModalEdit {
-  position: fixed; /* Fijo en la pantalla */
-  top: 0;
-  right: 0; /* Alineado a la derecha */
-  width: auto; /* 30% de la pantalla */
-  height: 100%; /* Ocupa toda la altura de la pantalla */
-  background-color: rgba(61, 61, 61, 0.336); /* Fondo semi-transparente */
-  display: flex;
-  justify-content: flex-end; /* Alineado al final de la pantalla */
-  align-items: center;
-  z-index: 1000;
-  transition: transform 1s ease; /* Transición suave para animaciones */
+.formCssDark {
+  -webkit-box-shadow: -2px -1px 8px 4px rgba(255, 255, 255, 1);
+  -moz-box-shadow: -2px -1px 8px 4px rgba(255, 255, 255, 1);
+  box-shadow: -2px -1px 8px 4px rgba(255, 255, 255, 1);
 }
-
-.form {
-  background-color: #44444480;
-  padding: 10px;
-  margin: auto;
-}
-
-.close-Modal {
-  border: none;
-  background-color: transparent;
-  position: relative;
-  top: 10px;
-  left: 170px;
-  color: #4c4d4e85;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-.close-Modal:hover {
-  transform: scale(1.1);
-}
-
-.form h2 {
-  font-size: 24px;
-  margin: 0;
+.formCssLight {
+  -webkit-box-shadow: -2px -1px 8px 4px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -2px -1px 8px 4px rgba(0, 0, 0, 0.75);
+  box-shadow: -2px -1px 8px 4px rgba(0, 0, 0, 0.75);
 }
 
 .form input {
-  padding: 10px;
   margin-bottom: 10px;
   border-radius: 4px;
   border: 1px solid #ccc;

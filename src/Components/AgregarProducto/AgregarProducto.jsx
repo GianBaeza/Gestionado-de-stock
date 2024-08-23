@@ -98,7 +98,7 @@ export default function AgregarProducto({ closeModal }) {
                     <input
                         type="submit"
                         value="Agregar"
-                        className="mt-4 p-2 bg-blue-100 text-slate-900 rounded hover:bg-slate-500 cursor-pointer"
+                        className="mt-4 p-2 bg-blue-100 text-slate-900 rounded hover:bg-slate-500 cursor-pointer "
                     />
                 </form>
             </div>

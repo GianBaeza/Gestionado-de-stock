@@ -46,27 +46,32 @@ export default function StockInventario() {
         handleCloseEditModal();
     };
 
-    const colorFont = theme === 'dark' ? 'text-stone-300' : 'text-stone-800';
+
+
+    const colorFont = theme === 'dark' ? `text-stone-300 ` : 'text-stone-800';
     const searchColor = theme === 'dark' ? 'bg-gray-200' : 'bg-gray-200 bg-slate-500';
+    const estilosEditModal = modal.edit ? 'animate__animated animate__backInRight' : 'animate__animated animate__backOutRight';
+
+
     return (
         <div className={`container-Stock ${theme === 'dark' ? 'dark:bg-slate-800' : ''}  h-svh w-full`}>
-            <header className="main-Stock flex gap-4 p-5 m-0 w-full justify-center h-52">
+            <header className=" flex gap-4 p-5 m-0 w-full justify-center h-52">
 
-                <section className="w-5/5  flex gap-20 p-0 justify-end items-end ">
+                <section className="w-5/5  flex gap-20 p-0 justify-end items-end flex-wrap">
                     <h1 className={`text-8xl ${colorFont}`}>InvenStock</h1>
                     {modal.agregar && (
                         <AgregarProducto closeModal={handleCloseAgregarModal} />
                     )}
                     <div className="p-10 flex  py-0  justify-start  gap-10 items-center order-solid border-2 border-stone-400 h-20 rounded-lg"  >
 
-                        <label htmlFor="search">
+                        <label htmlFor="search" className='overflow-hidden'>
                             <input
                                 type="search"
                                 name="search"
                                 id="buscarItem"
                                 placeholder="Buscar Articulo.."
                                 onChange={handleChange}
-                                className={`p-2 text-stone-800 pl-2 border-none rounded-lg bg-gray-10 shadow-inner ${searchColor}`}
+                                className={`p-2 text-stone-900 pl-2 border-none rounded-lg bg-gray-10 shadow-inner ${searchColor}`}
                             />
 
                             <SearchIcon className="relative right-8  text-stone-300" />
@@ -103,7 +108,7 @@ export default function StockInventario() {
                 <EditarModal
                     handleCloseedit={handleCloseEditModal}
                     addEditcion={addEditcion}
-                    estiloAnimacion={modal.edit ? 'animate__animated animate__backInRight' : 'animate__animated animate__backOutRight'}
+                    estiloAnimacion={estilosEditModal}
                 />
             )}
         </div>
