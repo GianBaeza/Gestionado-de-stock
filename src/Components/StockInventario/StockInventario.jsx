@@ -46,55 +46,54 @@ export default function StockInventario() {
         handleCloseEditModal();
     };
 
-    const colorFont = theme === 'dark' ? 'text-stone-300' : 'text-stone-800';
-    const searchColor = theme === 'dark' ? 'bg-gray-800' : 'bg-[rgba(207,216,220)]';
+    const colorFont = theme === 'dark' ? 'text-stone-300 hover:text-slate-200 cursor-pointer' : 'cursor-pointer text-stone-700 hover:text-stone-900';
+    const searchColor = theme === 'dark' ? 'bg-gray-800 text-stone-300' : 'bg-[rgba(207,216,220)] text-stone-900';
     const estilosEditModal = modal.edit ? 'animate__animated animate__backInRight' : 'animate__animated animate__backOutRight';
 
     return (
-        <div className={` dark:bg-slate-800 w-screen h-svh`}>
-            <header className={`flex gap-4 p-5 m-0 w-full justify-center h-52 ${theme === 'dark' ? 'dark:bg-slate-800' : 'bg-white'}`}>
-                <section className="w-5/5 flex gap-20 p-0 justify-end items-end flex-wrap">
-                    <h1 className={`text-8xl ${colorFont}`}>
+        <div className={`dark:bg-slate-800 w-screen h-screen flex flex-col gap-10 p-10 justify-center items-center`}>
+            <header className={` w-10/12 h-62 flex-wrap${theme === 'dark' ? 'dark:bg-slate-800' : 'bg-white'}`}>
+                <section className="flex flex-col sm:flex-row space-x-60 p-0  sm:items-end flex-wrap ">
+                    <h1 className={`text-4xl sm:text-8xl ${colorFont} `}>
                         InvenStock
                     </h1>
                     {modal.agregar && (
                         <AgregarProducto closeModal={handleCloseAgregarModal} />
                     )}
-                    <div className={`p-10 flex py-0 justify-start gap-10 items-center border-2 border-stone-400 h-20 rounded-lg ${theme === 'dark' ? 'dark:bg-slate-700' : 'bg-gray-100'}`}>
-
-
-                        <ul className="flex gap-10 items-center">
+                    <div className={`p-5 sm:p-10 flex flex-col sm:flex-row justify-between gap-5 sm:gap-10 items-center border-2 border-stone-400 h-auto sm:h-20 rounded-lg ${theme === 'dark' ? 'dark:bg-slate-700' : 'bg-gray-100'}`}>
+                        <ul className="flex flex-col sm:flex-row gap-5 sm:gap-10 items-center">
                             <li>
-                                <label htmlFor="search" className="overflow-hidden">
+                                <label htmlFor="search" className="relative flex items-center overflow-hidden">
                                     <input
                                         type="search"
                                         name="search"
                                         id="buscarItem"
                                         placeholder="Buscar Articulo.."
                                         onChange={handleChange}
-                                        className={`p-2 text-stone-900 pl-2 border-none rounded-lg shadow-inner ${searchColor}`}
+                                        className={`p-2 pl-2 pr-9  w-82 border-none rounded-lg shadow-inner ${searchColor} focus:outline-none focus:ring-none focus:none`}
                                     />
-                                    <SearchIcon className={`relative right-8 ${colorFont}`} />
+                                    <SearchIcon className={`absolute right-2 ${colorFont}`} />
                                 </label>
                             </li>
                             <li>
-                                <label htmlFor="inputCodigo" className={`flex gap-1 ${colorFont} cursor-pointer`}>
+                                <label htmlFor="inputCodigo" className={`flex items-center gap-1 ${colorFont}`}>
                                     <input
                                         type="checkbox"
                                         name="inputCodigo"
                                         checked={check}
                                         onChange={(e) => setCheck(e.target.checked)}
+                                        className="cursor-pointer w-4 h-4"
                                     />
-                                    Por código
+                                    Filtrar por Codigo
                                 </label>
                             </li>
                             <li>
-                                <a onClick={handleOpenAgregarModal} className={`cursor-pointer ${colorFont}`}>
+                                <a onClick={handleOpenAgregarModal} className={` ${colorFont}`}>
                                     Nuevo Articulo
                                 </a>
                             </li>
                             <li>
-                                <a onClick={() => limpiarInventario()} className={`cursor-pointer ${colorFont}`}>
+                                <a onClick={() => limpiarInventario()} className={`${colorFont}`}>
                                     Borrar inventario
                                 </a>
                             </li>
@@ -105,7 +104,7 @@ export default function StockInventario() {
                     </div>
                 </section>
             </header>
-            <section >
+            <section className="w-screen">
                 <Stock id="Render Stock" inventario={inventario} handleOpenEdit={handleOpenEditModal} />
             </section>
             {modal.edit && (

@@ -34,20 +34,25 @@ const useStockStyles = () => {
             width: 100,
             backgroundColor: theme === 'dark' ? '#546e7a' : '#eceff1',
             '&:hover': {
-                backgroundColor: '#78909c', // Color durante el hover
+                backgroundColor: theme === 'dark' ? '#334155' : '#F3F4F6',
             },
         },
         estiloInfo: {
-            fontSize: 15,
-            fontFamily: 'myFont',
-            color: theme === 'dark' ? '#ffffff' : '#000000',
+            fontSize: 18,
+            color: theme === 'dark' ? '#ffffff' : '#4B5564',
+
         },
         estilosIcons: {
-            width: 20,
-            height: 20,
+            width: 26,
+            height: 26,
             margin: 'auto',
-            color: theme === 'dark' ? '#ffffff' : '#000000',
+            cursor: 'pointer',
+            borderLeft: '1px solid #1F2937',
+            borderRight: '1px solid #1F2937',
+            color: theme === 'dark' ? '#ffffff' : '#00390',
+
         },
+
         tableBody: {
             width: '80%',
             margin: 'auto',
@@ -56,6 +61,13 @@ const useStockStyles = () => {
 
 
         },
+        estiloDeletEditar: {
+            color: theme === 'dark' ? '#ffffff' : '#00390',
+            transition: 'transform 0.1s ease',
+            '&:hover': {
+                transform: 'scale(1.65)',
+            },
+        }
 
     };
 }

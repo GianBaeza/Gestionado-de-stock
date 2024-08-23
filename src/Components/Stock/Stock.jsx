@@ -85,12 +85,12 @@ export default function Stock({ handleOpenEdit }) {
                                         $ {new Intl.NumberFormat("es-AR").format(inv.venta)}
                                     </TableCell>
                                     <TableCell align="right" sx={styles.estiloInfo}>
-                                        <div className="flex gap-3 justify-end">
+                                        <div className="flex gap-4 justify-end pr-1">
                                             <button onClick={() => handleOpenEdit(inv.id)}>
-                                                <BorderColorIcon sx={{ color: styles.estilosIcons.color }} />
+                                                <BorderColorIcon sx={styles.estiloDeletEditar} />
                                             </button>
                                             <button onClick={() => deleteItem(inv.id)}>
-                                                <DeleteForeverIcon sx={{ color: styles.estilosIcons.color }} />
+                                                <DeleteForeverIcon sx={styles.estiloDeletEditar} />
                                             </button>
                                         </div>
                                     </TableCell>

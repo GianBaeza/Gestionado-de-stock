@@ -86,7 +86,7 @@ export default function InventarioProvider({ children }) {
                 } catch (error) {
                     console.error("Error deleting item:", error);
                 }
-            }, title: '¿Eliminar ítem?', theme
+            }, title: '¿Eliminar Producto?', theme
         });
     };
 
