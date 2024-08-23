@@ -98,15 +98,36 @@ export default function Stock({ handleOpenEdit }) {
                             );
                         })
                     ) : (
-                        <TableRow>
-                            <TableCell colSpan={7} align="center" sx={{ height: '100%', margin: 'auto', marginTop: '150px', marginLeft: '40%', position: 'absolute', }} >
+                        <Table>
+                            <TableBody
+                                colSpan={7}
+
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    height: '50%',
+                                    width: '80%', // Ajusta este valor según lo necesario para tu tabla
+                                    margin: 'auto',
+                                    position: 'absolute'
+                                }}
+                            >
                                 {loading ? (
-                                    <span className="flex flex-col items-center gap-3 font-medium text-l"><Loading /> Cargando...</span>
+                                    <span className="flex flex-col items-center gap-3 font-medium text-l">
+                                        <Loading /> Cargando...
+                                    </span>
                                 ) : (
-                                    <span style={{ color: styles.estiloInfo.color }}>Inventario Vacío</span>
+                                    <span
+                                        style={{ color: styles.estiloInfo.color }}
+                                        className="text-2xl flex flex-col items-center text-center font-medium text-l"
+                                    >
+                                        Inventario Vacío
+                                    </span>
                                 )}
-                            </TableCell>
-                        </TableRow>
+                            </TableBody>
+
+                        </Table>
                     )}
                 </TableBody>
             </Table>

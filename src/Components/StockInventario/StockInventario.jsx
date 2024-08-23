@@ -53,7 +53,7 @@ export default function StockInventario() {
     return (
         <div className={`dark:bg-slate-800 w-screen h-screen flex flex-col gap-10 p-10 justify-center items-center`}>
             <header className={` w-10/12 h-62 flex-wrap${theme === 'dark' ? 'dark:bg-slate-800' : 'bg-white'}`}>
-                <section className="flex flex-col sm:flex-row space-x-60 p-0  sm:items-end flex-wrap ">
+                <section className="flex flex-col sm:flex-row  p-0  sm:items-end flex-wrap gap-64 ">
                     <h1 className={`text-4xl sm:text-8xl ${colorFont} `}>
                         InvenStock
                     </h1>

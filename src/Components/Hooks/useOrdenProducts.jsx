@@ -1,33 +1,26 @@
-
 export default function useOrdenProducts() {
     const ordenProducts = (objt, prop, state) => {
-        const sortArray = [...objt]
+        const sortArray = [...objt];
 
-        // orden por stock
-        if (typeof sortArray[0][prop] == 'number') {
+        if (typeof sortArray[0][prop] === 'number') {
+            // Ordenar por números
             sortArray.sort((a, b) => {
-
                 return state ? a[prop] - b[prop] : b[prop] - a[prop];
             });
-        } else if (typeof objt[0][prop] === 'string') {
-            // Orden ascendente (A a Z)
+        } else if (typeof sortArray[0][prop] === 'string') {
+            // Ordenar por cadenas
             sortArray.sort((a, b) => {
+                const aValue = a[prop] ? a[prop].toLowerCase() : '';
+                const bValue = b[prop] ? b[prop].toLowerCase() : '';
 
                 if (state) {
-
-                    if (a[prop].toLowerCase() < b[prop].toLowerCase()) return -1;
-                    if (a[prop].toLowerCase() > b[prop].toLowerCase()) return 1;
-                    return 0;
+                    return aValue < bValue ? -1 : aValue > bValue ? 1 : 0;
                 } else {
-                    // Orden descendente (Z a A)
-                    if (a[prop].toLowerCase() > b[prop].toLowerCase()) return -1;
-                    if (a[prop].toLowerCase() < b[prop].toLowerCase()) return 1;
-                    return 0;
+                    return aValue > bValue ? -1 : aValue < bValue ? 1 : 0;
                 }
             });
         }
-        return sortArray
-
+        return sortArray;
     };
 
     return ordenProducts;
