@@ -12,7 +12,7 @@ export default function EditarModal({ handleCloseedit, addEditcion }) {
     return (
         <>
             <main className={styles.formContainer}>
-                <form onSubmit={handleSubmit(addEditcion)} className={`${styles.formStyles} ${styles.modalEstilos} gap-8`}>
+                <form onSubmit={handleSubmit(addEditcion)} className={`${styles.formStyles} ${styles.modalEstilos} gap-8 animate__animated animate__fadeInRight`}>
                     <button type="button" onClick={handleCloseedit} className="relative left-40 m-auto">
                         <CloseIcon />
                     </button>

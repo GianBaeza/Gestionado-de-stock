@@ -75,6 +75,7 @@ export default function Stock({ handleOpenEdit }) {
                                     <TableCell align="right" sx={styles.estiloInfo}>
                                         {`${dia}/${mes}/${anio}`}
                                     </TableCell>
+
                                     <TableCell align="right" sx={styles.estiloInfo}>
                                         {inv.codigo}
                                     </TableCell>
@@ -134,4 +135,3 @@ export default function Stock({ handleOpenEdit }) {
         </TableContainer>
     );
 }
-

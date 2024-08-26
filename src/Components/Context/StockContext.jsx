@@ -4,7 +4,7 @@ import useOrdenProducts from "../Hooks/useOrdenProducts";
 import { collection, getDocs, doc, updateDoc, addDoc, deleteDoc, writeBatch } from "firebase/firestore";
 import db from "../../Services/config";
 import { ThemeContextCustom } from "./ThemeContext";
-
+import { cache } from 'react'
 
 export const InventarioContext = createContext();
 
@@ -43,7 +43,9 @@ export default function InventarioProvider({ children }) {
         }
     };
 
+
     useEffect(() => {
+        console.log('render')
         fetchInventario()
 
     }, []);

@@ -5,10 +5,10 @@ const useStockStyles = () => {
     const { theme } = useContext(ThemeContextCustom);
     return {
         tableContainer: {
-            width: '80%',
+            width: { ...'90%', sm: '100%' },
             margin: 'auto',
             height: '600px',
-            paddingBottom: '5px',
+            paddingBottom: { ...'5px' },
             fontFamily: 'myFont',
             backgroundColor: theme === 'dark' ? '#607d8b' : '#eceff1',
             overflow: scroll,
@@ -20,12 +20,20 @@ const useStockStyles = () => {
 
         },
         estiloHead: {
-            fontSize: 20,
+            fontSize: {
+                ...20,
+                xs: '10px',
+                sm: '14px',
+                md: '16px',
+                lg: '18px',
+                xl: '20px',
+            },
             fontFamily: 'myFont',
             fontWeight: '100',
             color: theme === 'dark' ? '#ffffff' : '#000000',
             backgroundColor: theme === 'dark' ? '#37474f' : '#cfd8dc',
             height: 70,
+
         },
         estiloRow: {
             margin: 'auto',
@@ -36,6 +44,7 @@ const useStockStyles = () => {
             '&:hover': {
                 backgroundColor: theme === 'dark' ? '#334155' : '#F3F4F6',
             },
+
         },
         estiloInfo: {
             fontSize: 18,

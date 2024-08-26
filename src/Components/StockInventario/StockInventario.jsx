@@ -28,10 +28,12 @@ export default function StockInventario() {
 
     const handleOpenEditModal = useCallback((id) => {
         setEditId(id);
+
         setModal(prev => ({ ...prev, edit: true }));
     }, []);
 
     const handleCloseEditModal = useCallback(() => {
+
         setModal(prev => ({ ...prev, edit: false }));
     }, []);
 
@@ -70,7 +72,7 @@ export default function StockInventario() {
                                         id="buscarItem"
                                         placeholder="Buscar Articulo.."
                                         onChange={handleChange}
-                                        className={`p-2 pl-2 pr-9  w-82 border-none rounded-lg shadow-inner ${searchColor} focus:outline-none focus:ring-none focus:none`}
+                                        className={`p-2 pl-2 pr-9  w-82 border-none rounded-lg shadow-inner ${searchColor} focus:outline-none focus:ring-none focus:none `}
                                     />
                                     <SearchIcon className={`absolute right-2 ${colorFont}`} />
                                 </label>
@@ -112,6 +114,7 @@ export default function StockInventario() {
                     handleCloseedit={handleCloseEditModal}
                     addEditcion={addEditcion}
                     estiloAnimacion={estilosEditModal}
+
                 />
             )}
         </div>
