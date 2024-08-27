@@ -7,7 +7,8 @@ import 'animate.css';
 import SearchIcon from "@mui/icons-material/Search";
 import { ThemeContextCustom } from "../Context/ThemeContext";
 import ThemeSwitch from "./ButtonTheme/ThemeButton";
-
+import logoLight from "../../../public/logo/2.png";
+import logoDark from "../../../public/logo/1.png"
 export default function StockInventario() {
     const [modal, setModal] = useState({
         edit: false,
@@ -51,15 +52,16 @@ export default function StockInventario() {
     const colorFont = theme === 'dark' ? 'text-stone-300 hover:text-slate-200 cursor-pointer' : 'cursor-pointer text-stone-700 hover:text-stone-900';
     const searchColor = theme === 'dark' ? 'bg-gray-800 text-stone-300' : 'bg-[rgba(207,216,220)] text-stone-900';
     const estilosEditModal = modal.edit ? 'animate__animated animate__backInRight' : 'animate__animated animate__backOutRight';
+    const logoImg = theme === 'dark' ? logoDark : logoLight
 
     return (
         <div className={`dark:bg-slate-800 w-screen h-screen flex flex-col gap-10 max-2xl:gap-4 p-10 justify-center  items-center`}>
             <header className={`  w-screen   h-42 flex-wrap${theme === 'dark' ? 'dark:bg-slate-800' : 'bg-white'}  max-2xl:items-center max-2xl:flex max-2xl:justify-center`}>
-                <section className=" 0 flex flex-col sm:flex-row p-0 sm:items-end flex-wrap gap-64  max-2xl:gap-5 sm:text-center sm:justify-center ">
-
-                    <h1 className={`text-8xl max-2xl:text-6xl ${colorFont}  max-2xl:mt-4 `}>
-                        InvenStock
-                    </h1>
+                <section className=" 0 flex flex-col sm:flex-row p-0 sm:items-end flex-wrap gap-64  max-2xl:gap-10 sm:text-center sm:justify-center ">
+                    <div className="flex justify-center items-end gap-2 text-end">
+                        <img src={logoImg} alt="logo" className="h-28" />
+                        <h1 className={`text-8xl max-2xl:text-6xl ${colorFont} max-2xl:mt-4 font-semibold`}>Stock</h1>
+                    </div>
                     {modal.agregar && (
                         <AgregarProducto closeModal={handleCloseAgregarModal} />
                     )}

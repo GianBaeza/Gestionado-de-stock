@@ -3,7 +3,6 @@
   src: url(../public//Font/Inter.ttc);
 }
 
-h1,
 h2,
 h3,
 p,
@@ -11,5 +10,9 @@ button,
 ::placeholder,
 body,
 span {
+  font-family: myFont;
+}
+
+h1 {
   font-family: myFont;
 }
