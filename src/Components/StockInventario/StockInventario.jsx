@@ -53,18 +53,19 @@ export default function StockInventario() {
     const estilosEditModal = modal.edit ? 'animate__animated animate__backInRight' : 'animate__animated animate__backOutRight';
 
     return (
-        <div className={`dark:bg-slate-800 w-screen h-screen flex flex-col gap-10 p-10 justify-center items-center`}>
-            <header className={` w-10/12 h-62 flex-wrap${theme === 'dark' ? 'dark:bg-slate-800' : 'bg-white'}`}>
-                <section className="flex flex-col sm:flex-row  p-0  sm:items-end flex-wrap gap-64 ">
-                    <h1 className={`text-4xl sm:text-8xl ${colorFont} `}>
+        <div className={`dark:bg-slate-800 w-screen h-screen flex flex-col gap-10 max-2xl:gap-4 p-10 justify-center  items-center`}>
+            <header className={`  w-screen   h-42 flex-wrap${theme === 'dark' ? 'dark:bg-slate-800' : 'bg-white'}  max-2xl:items-center max-2xl:flex max-2xl:justify-center`}>
+                <section className=" 0 flex flex-col sm:flex-row p-0 sm:items-end flex-wrap gap-64  max-2xl:gap-5 sm:text-center sm:justify-center ">
+
+                    <h1 className={`text-8xl max-2xl:text-6xl ${colorFont}  max-2xl:mt-4 `}>
                         InvenStock
                     </h1>
                     {modal.agregar && (
                         <AgregarProducto closeModal={handleCloseAgregarModal} />
                     )}
-                    <div className={`p-5 sm:p-10 flex flex-col sm:flex-row justify-between gap-5 sm:gap-10 items-center border-2 border-stone-400 h-auto sm:h-20 rounded-lg ${theme === 'dark' ? 'dark:bg-slate-700' : 'bg-gray-100'}`}>
-                        <ul className="flex flex-col sm:flex-row gap-5 sm:gap-10 items-center">
-                            <li>
+                    <div className={` p-5 flex flex-col sm:flex-row justify-between gap-5 sm:gap-0 items-center border-2 border-stone-400 h-auto max-xl:h-20  rounded-lg ${theme === 'dark' ? 'dark:bg-slate-700' : 'bg-gray-100'}`}>
+                        <ul className="flex flex-col sm:flex-row gap-5  items-center">
+                            <li >
                                 <label htmlFor="search" className="relative flex items-center overflow-hidden">
                                     <input
                                         type="search"
@@ -77,25 +78,25 @@ export default function StockInventario() {
                                     <SearchIcon className={`absolute right-2 ${colorFont}`} />
                                 </label>
                             </li>
-                            <li>
+                            <li className="sm:col-start-1">
                                 <label htmlFor="inputCodigo" className={`flex items-center gap-1 ${colorFont}`}>
                                     <input
                                         type="checkbox"
                                         name="inputCodigo"
                                         checked={check}
                                         onChange={(e) => setCheck(e.target.checked)}
-                                        className="cursor-pointer w-4 h-4"
+                                        className="cursor-pointer w-4 h-4 max-xl:text-l"
                                     />
-                                    Filtrar por Codigo
+                                    Por Codigo
                                 </label>
                             </li>
                             <li>
-                                <a onClick={handleOpenAgregarModal} className={` ${colorFont}`}>
+                                <a onClick={handleOpenAgregarModal} className={` ${colorFont} max-xl:text-l`}>
                                     Nuevo Articulo
                                 </a>
                             </li>
                             <li>
-                                <a onClick={() => limpiarInventario()} className={`${colorFont}`}>
+                                <a onClick={() => limpiarInventario()} className={`${colorFont} max-xl:text-l`}>
                                     Borrar inventario
                                 </a>
                             </li>

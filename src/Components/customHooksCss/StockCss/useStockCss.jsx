@@ -5,10 +5,12 @@ const useStockStyles = () => {
     const { theme } = useContext(ThemeContextCustom);
     return {
         tableContainer: {
-            width: { ...'90%', sm: '100%' },
+            width: '90%', '@media (max-width: 1200px)': { // A partir de pantallas grandes (lg)
+                width: '100%',
+            },
             margin: 'auto',
             height: '600px',
-            paddingBottom: { ...'5px' },
+            paddingBottom: '5px',
             fontFamily: 'myFont',
             backgroundColor: theme === 'dark' ? '#607d8b' : '#eceff1',
             overflow: scroll,
@@ -16,6 +18,12 @@ const useStockStyles = () => {
             scrollbarWidth: 'thin',
             scrollBehavior: 'smooth',
             scrollbarHeight: '5px',
+
+
+
+
+        },
+        estiloTable: {
 
 
         },
@@ -34,7 +42,13 @@ const useStockStyles = () => {
             backgroundColor: theme === 'dark' ? '#37474f' : '#cfd8dc',
             height: 70,
 
+
+
+
+
+
         },
+
         estiloRow: {
             margin: 'auto',
             flexWrap: 'wrap',
@@ -45,14 +59,23 @@ const useStockStyles = () => {
                 backgroundColor: theme === 'dark' ? '#334155' : '#F3F4F6',
             },
 
+
+
         },
         estiloInfo: {
-            fontSize: 18,
+            fontSize: {
+                ...20,
+                xs: '10px',
+                sm: '14px',
+                md: '16px',
+                lg: '18px',
+                xl: '20px',
+            },
             color: theme === 'dark' ? '#ffffff' : '#4B5564',
 
         },
         estilosIcons: {
-            width: 26,
+            width: { ...26, sm: 20 },
             height: 26,
             margin: 'auto',
             cursor: 'pointer',

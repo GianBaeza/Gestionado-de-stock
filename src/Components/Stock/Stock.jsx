@@ -19,11 +19,11 @@ export default function Stock({ handleOpenEdit }) {
 
     return (
         <TableContainer component={Paper} sx={styles.tableContainer} className="custom-scrollbar">
-            <Table stickyHeader>
+            <Table stickyHeader sx={styles.estiloTable}>
                 <TableHead sx={{ height: '10px' }}>
-                    <TableRow>
+                    <TableRow sx={styles.prevRow}>
                         <TableCell sx={styles.estiloHead}>
-                            Nombre del Producto{" "}
+                            Nombre{" "}
                             <ImportExportIcon
                                 className="ButtonOrden"
                                 sx={styles.estilosIcons}
@@ -31,7 +31,7 @@ export default function Stock({ handleOpenEdit }) {
                             />
                         </TableCell>
                         <TableCell align="right" sx={styles.estiloHead}>
-                            Cantidad en Stock{" "}
+                            Stock{" "}
                             <ImportExportIcon
                                 className="ButtonOrden"
                                 sx={styles.estilosIcons}
@@ -39,16 +39,16 @@ export default function Stock({ handleOpenEdit }) {
                             />
                         </TableCell>
                         <TableCell align="right" sx={styles.estiloHead}>
-                            Fecha de Registro
+                            Fecha
                         </TableCell>
                         <TableCell align="right" sx={styles.estiloHead}>
-                            Código del Producto
+                            Producto
                         </TableCell>
                         <TableCell align="right" sx={styles.estiloHead}>
-                            Precio de Lista
+                            Lista
                         </TableCell>
                         <TableCell align="right" sx={styles.estiloHead}>
-                            Precio de Venta
+                            Venta
                         </TableCell>
                         <TableCell align="right" sx={styles.estiloHead}>
                             Acciones

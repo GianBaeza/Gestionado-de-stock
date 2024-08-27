@@ -1,6 +1,5 @@
 import { useForm } from "react-hook-form";
 import CloseIcon from "@mui/icons-material/Close";
-import "../EditarProducto/editarModal.css";
 import 'animate.css';
 import useEditModalStyles from "../customHooksCss/EditCss/useEditCss";
 
@@ -12,8 +11,8 @@ export default function EditarModal({ handleCloseedit, addEditcion }) {
     return (
         <>
             <main className={styles.formContainer}>
-                <form onSubmit={handleSubmit(addEditcion)} className={`${styles.formStyles} ${styles.modalEstilos} gap-8 animate__animated animate__fadeInRight`}>
-                    <button type="button" onClick={handleCloseedit} className="relative left-40 m-auto">
+                <form onSubmit={handleSubmit(addEditcion)} className={`${styles.formStyles} ${styles.modalEstilos} gap-8 animate__animated   animate__fadeInUp shadow-[0px_-4px_5px_0px_rgba(0,0,0,0.75)]`}>
+                    <button type="button" onClick={handleCloseedit} className=" absolute right-10 m-auto  max-2xl:right-4  max-2xl:top-3">
                         <CloseIcon />
                     </button>
 
@@ -58,7 +57,7 @@ export default function EditarModal({ handleCloseedit, addEditcion }) {
                     <input
                         type="submit"
                         value="Guardar"
-                        className={`${styles.inputsEstilos} w-40 cursor-pointer ${styles.buttonGuardar} `}
+                        className={`${styles.buttonGuardar} w-40 cursor-pointer `}
                     />
                 </form>
             </main>

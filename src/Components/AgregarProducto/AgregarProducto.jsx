@@ -17,7 +17,7 @@ export default function AgregarProducto({ closeModal }) {
 
     return (
         <div className={styles.containerModal}>
-            <div className={`p-6 rounded-lg shadow-lg w-2/6 flex flex-col gap-8 ${styles.modalEstilos}`}>
+            <div className={`p-6 rounded-lg shadow-lg w-3/12 flex flex-col gap-8 ${styles.modalEstilos}`}>
                 <button onClick={closeModal} className={styles.buttonClose}>
                     <CloseIcon />
                 </button>
