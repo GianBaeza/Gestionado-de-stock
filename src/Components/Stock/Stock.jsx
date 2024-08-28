@@ -100,23 +100,11 @@ export default function Stock({ handleOpenEdit }) {
                             );
                         })
                     ) : (
-                        <Table>
-                            <TableBody
-                                colSpan={7}
+                        <TableRow >
+                            <TableCell colSpan={7} sx={{ border: 'none' }}>
 
-                                sx={{
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    height: '50%',
-                                    width: '80%', // Ajusta este valor según lo necesario para tu tabla
-                                    margin: 'auto',
-                                    position: 'absolute'
-                                }}
-                            >
                                 {loading ? (
-                                    <span className="flex flex-col items-center gap-3 font-medium text-l">
+                                    <span className="flex flex-col justify-center items-center h-96">
                                         <Loading /> Cargando...
                                     </span>
                                 ) : (
@@ -127,12 +115,13 @@ export default function Stock({ handleOpenEdit }) {
                                         Inventario Vacío
                                     </span>
                                 )}
-                            </TableBody>
 
-                        </Table>
+
+                            </TableCell>
+                        </TableRow>
                     )}
                 </TableBody>
             </Table>
-        </TableContainer>
+        </TableContainer >
     );
 }

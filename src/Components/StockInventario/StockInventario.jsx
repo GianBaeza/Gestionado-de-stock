@@ -9,6 +9,7 @@ import { ThemeContextCustom } from "../Context/ThemeContext";
 import ThemeSwitch from "./ButtonTheme/ThemeButton";
 import logoLight from "../../../public/logo/2.png";
 import logoDark from "../../../public/logo/1.png"
+import Footer from "../Footer/Footer";
 export default function StockInventario() {
     const [modal, setModal] = useState({
         edit: false,
@@ -112,6 +113,9 @@ export default function StockInventario() {
             <section className="w-screen">
                 <Stock id="Render Stock" inventario={inventario} handleOpenEdit={handleOpenEditModal} />
             </section>
+            <footer>
+                <Footer theme={theme} />
+            </footer>
             {modal.edit && (
                 <EditarModal
                     handleCloseedit={handleCloseEditModal}
