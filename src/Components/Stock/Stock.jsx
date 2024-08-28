@@ -22,7 +22,7 @@ export default function Stock({ handleOpenEdit }) {
             <Table stickyHeader sx={styles.estiloTable}>
                 <TableHead sx={{ height: '10px' }}>
                     <TableRow sx={styles.prevRow}>
-                        <TableCell sx={styles.estiloHead}>
+                        <TableCell sx={styles.estiloHead} >
                             Nombre{" "}
                             <ImportExportIcon
                                 className="ButtonOrden"
@@ -30,12 +30,13 @@ export default function Stock({ handleOpenEdit }) {
                                 onClick={() => ordenarXNombre()}
                             />
                         </TableCell>
-                        <TableCell align="right" sx={styles.estiloHead}>
+                        <TableCell align="right" sx={styles.estiloHead} >
                             Stock{" "}
                             <ImportExportIcon
                                 className="ButtonOrden"
                                 sx={styles.estilosIcons}
                                 onClick={() => ordenarXStock()}
+
                             />
                         </TableCell>
                         <TableCell align="right" sx={styles.estiloHead}>

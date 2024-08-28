@@ -120,6 +120,7 @@ export default function InventarioProvider({ children }) {
 
             const primerelemento = inventario.find((item) => item.id === id)
 
+
             const itemEditado = {
 
                 nombre: data.nombre || primerelemento.nombre,

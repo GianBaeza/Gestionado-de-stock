@@ -41,6 +41,10 @@ const useStockStyles = () => {
             color: theme === 'dark' ? '#ffffff' : '#000000',
             backgroundColor: theme === 'dark' ? '#37474f' : '#cfd8dc',
             height: 70,
+            width: 'auto', '@media (max-width: 1005px)': { // A partir de pantallas grandes (lg)
+                width: '20%',
+            },
+
 
 
 
