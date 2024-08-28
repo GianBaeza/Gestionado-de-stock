@@ -60,11 +60,7 @@ export default function Stock({ handleOpenEdit }) {
                 <TableBody sx={styles.tableBody}>
                     {inventario.length > 0 ? (
                         inventario.map((inv) => {
-                            const fechaDate = new Date(inv.fecha);
-                            const anio = fechaDate.getFullYear();
-                            const mes = fechaDate.getMonth() + 1;
-                            const dia = fechaDate.getDate() + 1;
-
+                            const fechaDate = new Date(inv.fecha).toLocaleDateString();
                             return (
                                 <TableRow key={inv.id} sx={styles.estiloRow}>
                                     <TableCell component="th" scope="row" sx={styles.estiloInfo}>
@@ -74,7 +70,7 @@ export default function Stock({ handleOpenEdit }) {
                                         {inv.stock}
                                     </TableCell>
                                     <TableCell align="right" sx={styles.estiloInfo}>
-                                        {`${dia}/${mes}/${anio}`}
+                                        {fechaDate}
                                     </TableCell>
 
                                     <TableCell align="right" sx={styles.estiloInfo}>

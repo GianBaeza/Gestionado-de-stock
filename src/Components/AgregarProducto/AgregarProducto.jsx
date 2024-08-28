@@ -30,7 +30,7 @@ export default function AgregarProducto({ closeModal }) {
                             <input
                                 type="text"
                                 {...register("nombre", { required: true })}
-                                placeholder="Producto..."
+                                placeholder="Correa... Pelota..."
                                 className={styles.inputsEstilos}
                             />
                             {errors.nombre && <span className="text-red-500 text-sm">Ingrese un nombre válido</span>}
@@ -40,7 +40,7 @@ export default function AgregarProducto({ closeModal }) {
                             <input
                                 type="text"
                                 {...register("codigo", { required: true })}
-                                placeholder="Código..."
+                                placeholder="PM41SD..."
                                 className={styles.inputsEstilos}
                             />
                             {errors.codigo && <span className="text-red-500 text-sm">Ingrese un código válido</span>}
@@ -62,7 +62,7 @@ export default function AgregarProducto({ closeModal }) {
                             <input
                                 type="number"
                                 {...register("stock", { required: true })}
-                                placeholder="Stock..."
+                                placeholder="44..."
                                 className={styles.inputsEstilos}
                             />
                             {errors.stock && <span className="text-red-500 text-sm">Ingrese un stock válido</span>}
@@ -75,7 +75,7 @@ export default function AgregarProducto({ closeModal }) {
                             <input
                                 type="number"
                                 {...register("lista", { required: true })}
-                                placeholder="$ Lista"
+                                placeholder="$ 200..."
                                 className={styles.inputsEstilos}
                             />
                         </div>
@@ -84,7 +84,7 @@ export default function AgregarProducto({ closeModal }) {
                             <input
                                 type="number"
                                 {...register("venta", { required: true })}
-                                placeholder="$ Venta"
+                                placeholder="$ 400..."
                                 className={styles.inputsEstilos}
                             />
                         </div>

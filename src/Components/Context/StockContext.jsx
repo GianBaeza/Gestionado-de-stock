@@ -4,7 +4,6 @@ import useOrdenProducts from "../Hooks/useOrdenProducts";
 import { collection, getDocs, doc, updateDoc, addDoc, deleteDoc, writeBatch } from "firebase/firestore";
 import db from "../../Services/config";
 import { ThemeContextCustom } from "./ThemeContext";
-import { cache } from 'react'
 
 export const InventarioContext = createContext();
 
@@ -45,7 +44,7 @@ export default function InventarioProvider({ children }) {
 
 
     useEffect(() => {
-        console.log('render')
+
         fetchInventario()
 
     }, []);
@@ -100,6 +99,7 @@ export default function InventarioProvider({ children }) {
 
         if (queryValue.trim() == "" || queryValue.length < 1) {
             setInventario(cloneInventario)
+
         } else {
             const filteredData = inventario.filter(item => {
                 return check
@@ -130,7 +130,7 @@ export default function InventarioProvider({ children }) {
                 venta: data.venta || primerelemento.venta,
 
             }
-            console.log(itemEditado)
+
 
             await updateDoc(itemDocRef, itemEditado);
             fetchInventario()
@@ -163,7 +163,7 @@ export default function InventarioProvider({ children }) {
                     const batch = writeBatch(db);
 
                     snapshot.forEach((doc) => {
-                        batch.delete(doc.ref); // Corregido: Usa `doc.ref` para eliminar la referencia del documento
+                        batch.delete(doc.ref); // `doc.ref` para eliminar la referencia del documento
                     });
 
                     await batch.commit(); // Commit del batch para ejecutar todas las eliminaciones
